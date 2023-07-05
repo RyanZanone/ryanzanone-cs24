@@ -33,6 +33,14 @@ string rotateCaps(string &line, int rotation)
         capsLocation.at(i) += rotation; // adjust caps locations by their rotation value
     }
 
+    for (i = 0; i < capsLen; i++)
+    {
+        if (capsLocation.at(i) > len - 1)
+        {
+            capsLocation.at(i) = (capsLocation.at(i) % len);
+        }
+    }
+
     for (i = 0; i < len; i++)
     {
         newLine.at(i) = tolower(newLine.at(i)); // make all letters lowercase
