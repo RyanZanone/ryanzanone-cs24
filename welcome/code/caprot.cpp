@@ -21,24 +21,26 @@ string rotateCaps(string &line, int rotation)
         }
     }
 
-    if (capsLocation.size() == 0)
+    int capsLen = capsLocation.size();
+
+    if (capsLen == 0)
     {
-        return newLine;
+        return newLine; // if there are no caps, no modifications are made
     }
 
-    for (size_t j = 0; j < capsLocation.size(); j++)
+    for (i = 0; i < capsLen; i++)
     {
-        capsLocation.at(j) += rotation;
+        capsLocation.at(i) += rotation; // adjust caps locations by their rotation value
     }
 
     for (i = 0; i < len; i++)
     {
-        newLine.at(i) = tolower(newLine.at(i));
+        newLine.at(i) = tolower(newLine.at(i)); // make all letters lowercase
     }
 
-    for (size_t j = 0; j < capsLocation.size(); j++)
+    for (i = 0; i < capsLen; i++)
     {
-        newLine.at(capsLocation.at(j)) = toupper(newLine.at(capsLocation.at(j)));
+        newLine.at(capsLocation.at(i)) = toupper(newLine.at(capsLocation.at(i))); // make letters at caps locations uppercase
     }
 
     return newLine;
