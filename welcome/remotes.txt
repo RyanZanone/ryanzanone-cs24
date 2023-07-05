@@ -1,0 +1,4 @@
+origin	git@github.com:RyanZanone/ryanzanone-cs24.git (fetch)
+origin	git@github.com:RyanZanone/ryanzanone-cs24.git (push)
+upstream	https://github.com/boyland-pf/cs24.git (fetch)
+upstream	https://github.com/boyland-pf/cs24.git (push)
