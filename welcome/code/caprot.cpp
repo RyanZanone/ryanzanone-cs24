@@ -10,7 +10,7 @@ string rotateCaps(string &line, int rotation)
     string newLine = line;
     int len = line.length();
     vector<int> capsLocation;
-    unsigned int i;
+    int i;
 
     for (i = 0; i < len; i++)
     {
@@ -26,9 +26,9 @@ string rotateCaps(string &line, int rotation)
         return newLine;
     }
 
-    for (i = 0; i < capsLocation.size(); i++)
+    for (size_t j = 0; j < capsLocation.size(); j++)
     {
-        capsLocation.at(i) += rotation;
+        capsLocation.at(j) += rotation;
     }
 
     for (i = 0; i < len; i++)
@@ -36,9 +36,9 @@ string rotateCaps(string &line, int rotation)
         newLine.at(i) = tolower(newLine.at(i));
     }
 
-    for (i = 0; i < capsLocation.size(); i++)
+    for (size_t j = 0; j < capsLocation.size(); j++)
     {
-        newLine.at(capsLocation.at(i)) = toupper(newLine.at(capsLocation.at(i)));
+        newLine.at(capsLocation.at(j)) = toupper(newLine.at(capsLocation.at(j)));
     }
 
     return newLine;
