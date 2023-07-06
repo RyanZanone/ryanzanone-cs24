@@ -15,7 +15,7 @@ string rotateCaps(string &line, int rotation)
     for (i = 0; i < len; i++)
     {
         char c = newLine.at(i);
-        if (isupper(c) == true)
+        if (isupper(c))
         {
             capsLocation.push_back(i); // track all locations of capital letters
         }
