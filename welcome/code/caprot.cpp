@@ -39,6 +39,10 @@ string rotateCaps(string &line, int rotation)
         {
             capsLocation.at(i) = (capsLocation.at(i) % len);
         }
+        else if (capsLocation.at(i) < 0)
+        {
+            capsLocation.at(i) = ((capsLocation.at(i)) % len);
+        }
     }
 
     for (i = 0; i < len; i++)
@@ -48,7 +52,14 @@ string rotateCaps(string &line, int rotation)
 
     for (i = 0; i < capsLen; i++)
     {
-        newLine.at(capsLocation.at(i)) = toupper(newLine.at(capsLocation.at(i))); // make letters at caps locations uppercase
+        if (capsLocation.at(i) < 0)
+        {
+            newLine.at((len + capsLocation.at(i))) = toupper(newLine.at((len + capsLocation.at(i)))); // go from the end if negative
+        }
+        else
+        {
+            newLine.at(capsLocation.at(i)) = toupper(newLine.at(capsLocation.at(i))); // make letters at caps locations uppercase
+        }
     }
 
     return newLine;
