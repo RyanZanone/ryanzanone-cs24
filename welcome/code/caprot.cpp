@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
     getline(cin, line);
 
     string newLine = rotateCaps(line, rotation);
-    cout << newLine << endl;
+    cout << newLine;
 
     return 0;
 }
