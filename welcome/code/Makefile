@@ -3,7 +3,7 @@
 # Compiler
 CC := g++
 # Compiler flags
-CFLAGS := -Wall -Wextra -pedantic -std=c++11
+CFLAGS := -Wall -Wextra -Werror -std=c++17
 
 # Source file
 SRCS := caprot.cpp

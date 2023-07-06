@@ -71,6 +71,11 @@ int main(int argc, char *argv[])
     string line;
     int rotation;
 
+    if (argc < 2)
+    {
+        cout << "Usage: " << argv[0] << "rotation" << endl;
+    }
+
     rotation = stoi(argv[1]);
     getline(cin, line);
 
