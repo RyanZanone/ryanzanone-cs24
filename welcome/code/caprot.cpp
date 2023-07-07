@@ -30,7 +30,7 @@ string rotateCaps(string &line, int rotation)
 
     for (i = 0; i < capsLen; i++)
     {
-        capsLocation.at(i) += rotation; // adjust caps locations by their rotation value
+        capsLocation.at(i) = capsLocation.at(i) - len + rotation; // adjust caps locations by their rotation value
     }
 
     for (i = 0; i < capsLen; i++)
