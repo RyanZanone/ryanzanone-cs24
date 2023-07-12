@@ -4,20 +4,24 @@ using namespace std;
 
 PauseVec::PauseVec()
 {
+    arr = new int[1];
+    size = 1;
+    num_items = 0;
 }
 
 PauseVec::~PauseVec()
 {
+    delete[] arr;
 }
 
 size_t PauseVec::capacity() const
 {
-    return 1111;
+    return size;
 }
 
 size_t PauseVec::count() const
 {
-    return 1111;
+    return num_items;
 }
 
 void PauseVec::push(int val)
