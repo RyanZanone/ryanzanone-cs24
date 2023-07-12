@@ -20,7 +20,7 @@ size_t PauseVec::count() const
     return 1111;
 }
 
-void PauseVec::push()
+void PauseVec::push(int val)
 {
 }
 
