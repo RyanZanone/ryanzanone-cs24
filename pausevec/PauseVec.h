@@ -6,8 +6,8 @@
 
 class PauseVec
 {
-  size_t capacity;
-  size_t count;
+  size_t size;
+  size_t items;
 
   // Helper Functions
 
