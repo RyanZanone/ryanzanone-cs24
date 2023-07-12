@@ -24,7 +24,7 @@ void PauseVec::push()
 {
 }
 
-int PauseVec::lookup()
+int PauseVec::lookup(size_t idx)
 {
     return 1111;
 }

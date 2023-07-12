@@ -20,7 +20,7 @@ public:
   size_t capacity() const;
   size_t count() const;
   void push();
-  int lookup();
+  int lookup(size_t idx);
   void mutate(size_t idx, int val);
   int remove(size_t idx);
   void remove_val(int val);
