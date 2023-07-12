@@ -33,3 +33,8 @@ int PauseVec::remove(size_t idx)
 void PauseVec::remove_val(int val)
 {
 }
+
+PauseVec *create_pausevec()
+{
+    return new PauseVec;
+}
