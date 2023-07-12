@@ -2,6 +2,14 @@
 
 using namespace std;
 
+PauseVec::PauseVec()
+{
+}
+
+PauseVec::~PauseVec()
+{
+}
+
 size_t PauseVec::capacity() const
 {
     return 1111;
