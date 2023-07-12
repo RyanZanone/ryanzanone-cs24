@@ -27,6 +27,7 @@ void PauseVec::mutate(size_t idx, int val)
 
 int PauseVec::remove(size_t idx)
 {
+    return 1111;
 }
 
 void PauseVec::remove_val(int val)
