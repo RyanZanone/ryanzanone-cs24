@@ -26,6 +26,20 @@ size_t PauseVec::count() const
 
 void PauseVec::push(int val)
 {
+    if (size - num_items == 0)
+    {
+        int *temp_arr = new int[size * 2];
+        for (size_t i = 0; i < size; i++)
+        {
+            temp_arr[i] = arr[i];
+        }
+        delete arr;
+        arr = temp_arr;
+        delete temp_arr;
+        size = size * 2;
+    }
+    arr[size - num_items - 1] = val;
+    num_items += 1;
 }
 
 int PauseVec::lookup(size_t idx)

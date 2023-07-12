@@ -9,7 +9,6 @@ class PauseVec
   int *arr;
   size_t size;
   size_t num_items;
-  int deletions;
 
   // Helper Functions
 
