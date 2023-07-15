@@ -52,15 +52,62 @@ int PauseVec::lookup(size_t idx)
 
 void PauseVec::mutate(size_t idx, int val)
 {
+    if (idx >= num_items)
+    {
+        throw out_of_range("Index out of range");
+    }
+
+    if (idx < deletions)
+    {
+        shift(0, idx - 1, -1);
+        deletions = idx;
+    }
+
+    arr[idx] = idx;
 }
 
 int PauseVec::remove(size_t idx)
 {
-    return 1111;
+    if (idx >= num_items)
+    {
+        throw out_of_range("Index out of range");
+    }
+
+    if (idx < deletions)
+    {
+        shift(0, idx - 1, -1);
+        deletions = idx;
+    }
+
+    int value = arr[idx];
+    shift(idx + 1, num_items - 1, -1);
+    num_items--;
+
+    if (num_items <= size / 4)
+    {
+        resize(size / 2);
+    }
+
+    return value;
 }
 
 void PauseVec::remove_val(int val)
 {
+    size_t write_idx = 0;
+    for (size_t read_idx = 0; read_idx < num_items; read_idx++)
+    {
+        if (arr[read_idx] != val)
+        {
+            arr[write_idx++] = arr[read_idx];
+        }
+    }
+
+    num_items = write_idx;
+
+    if (num_items <= size / 4)
+    {
+        resize(size / 2);
+    }
 }
 
 PauseVec *create_pausevec()
