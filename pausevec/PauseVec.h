@@ -3,14 +3,18 @@
 
 // This provides the size_t type:
 #include <cstddef>
+#include <stdexcept>
 
 class PauseVec
 {
+private:
   int *arr;
   size_t size;
   size_t num_items;
+  size_t deletions;
 
-  // Helper Functions
+  void resize(size_t new_size);
+  void shift(size_t start, size_t end, int shift);
 
 public:
   PauseVec();
