@@ -176,18 +176,7 @@ int PauseVec::remove(size_t idx)
     }
     else
     {
-        if (arr[idx] == -1)
-        {
-            throw out_of_range("Invalid Index");
-        }
-        else
-        {
-            earliest_deletion = idx;
-            num_items -= 1;
-            removed_val = arr[idx];
-            arr[idx] = -1;
-            return removed_val;
-        }
+        throw out_of_range("Invalid Index");
     }
 }
 
