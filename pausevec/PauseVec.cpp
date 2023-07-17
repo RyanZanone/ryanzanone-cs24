@@ -43,7 +43,10 @@ void PauseVec::push(int val)
     else
     {
         arr[size - 1] = val;
-        shift();
+        if (size - num_items != 0)
+        {
+            shift();
+        }
         num_items += 1;
     }
 }
@@ -174,9 +177,4 @@ void PauseVec::shift()
         i++;
         continue;
     }
-    if (num_items == size / 2)
-    {
-        resize(size / 2);
-    }
-    earliest_deletion = -1;
 }
