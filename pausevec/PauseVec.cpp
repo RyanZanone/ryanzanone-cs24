@@ -9,7 +9,7 @@ PauseVec::PauseVec()
     size = 1;
     num_items = 0;
     deletions = -1;
-    deletion = 0;
+    earliest_deletion = -1; // set to size by default and after resizing/shifting
 }
 
 PauseVec::~PauseVec()
@@ -46,7 +46,8 @@ void PauseVec::push(int val)
 
 int PauseVec::lookup(size_t idx)
 {
-    if (deletions == 0)
+    int temp_idx = idx;
+    if (earliest_deletion == -1)
     { // no deletions
         if (idx > num_items - 1)
         {
@@ -57,7 +58,7 @@ int PauseVec::lookup(size_t idx)
             return arr[idx];
         }
     }
-    else if (deletion < idx)
+    else if (earliest_deletion < temp_idx)
     { // accessing index above idx
         shift(size - 1);
         if (arr[idx] == -1)
@@ -81,7 +82,45 @@ void PauseVec::mutate(size_t idx, int val)
 
 int PauseVec::remove(size_t idx)
 {
-    return 1;
+    int temp_idx = idx;
+    int removed_val;
+    if (idx > size - 1)
+    {
+        throw out_of_range("Invalid Index");
+    }
+    else if (earliest_deletion == -1)
+    {
+        if (arr[idx] == -1)
+        {
+            throw out_of_range("Invalid Index");
+        }
+        else
+        {
+            removed_val = arr[idx];
+            arr[idx] = -1;
+            return removed_val;
+        }
+    }
+    else if (earliest_deletion > temp_idx)
+    {
+        removed_val = arr[idx];
+        arr[idx] = -1;
+        return removed_val;
+    }
+    else if (earliest_deletion <= temp_idx)
+    {
+        shift(size - 1);
+        if (arr[idx] == -1)
+        {
+            throw out_of_range("Invalid Index");
+        }
+        else
+        {
+            removed_val = arr[idx];
+            arr[idx] = -1;
+            return removed_val;
+        }
+    }
 }
 
 void PauseVec::remove_val(int val)
@@ -107,7 +146,6 @@ void PauseVec::resize(size_t new_size)
     delete[] arr;
     arr = temp_arr;
     size = new_size;
-    deletion = 0;
 }
 
 void PauseVec::shift(size_t end)
