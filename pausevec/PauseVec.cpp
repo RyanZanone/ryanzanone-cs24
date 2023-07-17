@@ -239,4 +239,5 @@ void PauseVec::shift()
         i++;
         continue;
     }
+    earliest_deletion = -1;
 }
