@@ -235,8 +235,4 @@ void PauseVec::shift()
         continue;
     }
     earliest_deletion = -1;
-    if (num_items == size / 2)
-    {
-        resize(size / 2);
-    }
 }
