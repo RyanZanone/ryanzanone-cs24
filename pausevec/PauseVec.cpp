@@ -30,20 +30,20 @@ void PauseVec::push(int val)
 {
     if (size - num_items == 0) // if array is full
     {
-        this->resize(size * 2);
+        resize(size * 2);
         arr[num_items] = val;
         num_items += 1;
     }
     else if (arr[size - 1] != -1)
     {
-        this->shift();
+        shift();
         arr[num_items] = val;
         num_items += 1;
     }
     else
     {
         arr[size - 1] = val;
-        this->shift();
+        shift();
         num_items += 1;
     }
 }
@@ -68,7 +68,7 @@ int PauseVec::lookup(size_t idx)
     }
     else
     {
-        this->shift();
+        shift();
         if (arr[idx] == -1)
         {
             throw out_of_range("Invalid Index");
@@ -102,7 +102,7 @@ int PauseVec::remove(size_t idx)
     }
     else if (earliest_deletion <= temp_idx && earliest_deletion != -1)
     {
-        this->shift();
+        shift();
         if (arr[idx] == -1)
         {
             throw out_of_range("Invalid Index");
@@ -176,7 +176,7 @@ void PauseVec::shift()
     }
     if (num_items == size / 2)
     {
-        this->resize(size / 2);
+        resize(size / 2);
     }
     earliest_deletion = -1;
 }
