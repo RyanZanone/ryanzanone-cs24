@@ -32,13 +32,14 @@ void PauseVec::push(int val)
     if (arr[size - 1] != -1) // if array has no more space
     {
         resize(size * 2);
-        arr[size - num_items - 1] = val;
+        arr[size - 1] = val;
         num_items += 1;
         shift(size - 1);
     }
     else
     {
         arr[size - 1] = val;
+        num_items += 1;
         shift(size - 1);
     }
 }
@@ -105,7 +106,6 @@ void PauseVec::resize(size_t new_size)
     }
     delete[] arr;
     arr = temp_arr;
-    delete[] temp_arr;
     size = new_size;
     deletion = 0;
 }
