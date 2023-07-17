@@ -34,7 +34,7 @@ obey the following rules:
 - When removing from a vector with capacity `f(n)`: if the number of elements shrinks
   below or equal to a quarter of the capacity, the vector must resize its capacity to halve the capacity.
 - When reading, writing, or removing an element at a given index: if there have been deletions
-  at less than that index since the last resize, shift every element over to be compact.
+  at less than or equal to that index since the last resize, shift every element over to be compact.
 
 ## Member Functions
 
