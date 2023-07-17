@@ -88,8 +88,16 @@ int PauseVec::remove(size_t idx)
     {
         throw out_of_range("Invalid Index");
     }
-    else if (earliest_deletion == -1)
+    else if (earliest_deletion > temp_idx)
     {
+        earliest_deletion = idx;
+        removed_val = arr[idx];
+        arr[idx] = -1;
+        return removed_val;
+    }
+    else if (earliest_deletion <= temp_idx && earliest_deletion != -1)
+    {
+        shift(size - 1);
         if (arr[idx] == -1)
         {
             throw out_of_range("Invalid Index");
@@ -101,21 +109,15 @@ int PauseVec::remove(size_t idx)
             return removed_val;
         }
     }
-    else if (earliest_deletion > temp_idx)
+    else
     {
-        removed_val = arr[idx];
-        arr[idx] = -1;
-        return removed_val;
-    }
-    else if (earliest_deletion <= temp_idx)
-    {
-        shift(size - 1);
         if (arr[idx] == -1)
         {
             throw out_of_range("Invalid Index");
         }
         else
         {
+            earliest_deletion = idx;
             removed_val = arr[idx];
             arr[idx] = -1;
             return removed_val;
@@ -169,4 +171,5 @@ void PauseVec::shift(size_t end)
     {
         resize(size / 2);
     }
+    earliest_deletion = -1;
 }
