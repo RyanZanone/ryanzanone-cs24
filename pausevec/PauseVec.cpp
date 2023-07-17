@@ -8,7 +8,8 @@ PauseVec::PauseVec()
     arr[0] = -1;
     size = 1;
     num_items = 0;
-    deletion = -1;
+    deletions = -1;
+    deletion = 0;
 }
 
 PauseVec::~PauseVec()
@@ -44,7 +45,7 @@ void PauseVec::push(int val)
 
 int PauseVec::lookup(size_t idx)
 {
-    if (deletion == -1)
+    if (deletions == 0)
     { // no deletions
         if (idx > num_items - 1)
         {

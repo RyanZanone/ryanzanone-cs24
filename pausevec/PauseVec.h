@@ -11,7 +11,8 @@ private:
   int *arr;
   size_t size;
   size_t num_items;
-  int deletion;
+  size_t deletion;
+  int deletions;
 
   void resize(size_t new_size);
   void shift(size_t end);
