@@ -130,7 +130,7 @@ int PauseVec::remove(size_t idx)
         num_items -= 1;
         removed_val = arr[idx];
         arr[idx] = -1;
-        if (num_items = size / 2)
+        if (num_items == size / 2)
         {
             shift();
             resize(size / 2);
@@ -149,7 +149,7 @@ int PauseVec::remove(size_t idx)
             num_items -= 1;
             removed_val = arr[idx];
             arr[idx] = -1;
-            if (num_items = size / 2)
+            if (num_items == size / 2)
             {
                 shift();
                 resize(size / 2);
@@ -169,7 +169,7 @@ int PauseVec::remove(size_t idx)
             num_items -= 1;
             removed_val = arr[idx];
             arr[idx] = -1;
-            if (num_items = size / 2)
+            if (num_items == size / 2)
             {
                 shift();
                 resize(size / 2);
@@ -193,7 +193,7 @@ void PauseVec::remove_val(int val)
                 earliest_deletion = temp_i;
             }
         }
-        if (num_items = size / 2)
+        if (num_items == size / 2)
         {
             shift();
             resize(size / 2);
