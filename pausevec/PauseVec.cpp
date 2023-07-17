@@ -85,6 +85,35 @@ int PauseVec::lookup(size_t idx)
 
 void PauseVec::mutate(size_t idx, int val)
 {
+    int temp_idx = idx;
+    if (earliest_deletion == -1)
+    { // no deletions
+        if (arr[idx] == -1)
+        {
+            throw out_of_range("Invalid Index");
+        }
+        else
+        {
+            arr[idx] = val;
+            ;
+        }
+    }
+    else if (earliest_deletion > temp_idx)
+    {
+        arr[idx] = val;
+    }
+    else
+    {
+        shift();
+        if (arr[idx] == -1)
+        {
+            throw out_of_range("Invalid Index");
+        }
+        else
+        {
+            arr[idx] = val;
+        }
+    }
 }
 
 int PauseVec::remove(size_t idx)
@@ -101,6 +130,11 @@ int PauseVec::remove(size_t idx)
         num_items -= 1;
         removed_val = arr[idx];
         arr[idx] = -1;
+        if (num_items = size / 2)
+        {
+            shift();
+            resize(size / 2);
+        }
         return removed_val;
     }
     else if (earliest_deletion <= temp_idx && earliest_deletion != -1)
@@ -115,6 +149,11 @@ int PauseVec::remove(size_t idx)
             num_items -= 1;
             removed_val = arr[idx];
             arr[idx] = -1;
+            if (num_items = size / 2)
+            {
+                shift();
+                resize(size / 2);
+            }
             return removed_val;
         }
     }
@@ -130,6 +169,11 @@ int PauseVec::remove(size_t idx)
             num_items -= 1;
             removed_val = arr[idx];
             arr[idx] = -1;
+            if (num_items = size / 2)
+            {
+                shift();
+                resize(size / 2);
+            }
             return removed_val;
         }
     }
@@ -137,6 +181,24 @@ int PauseVec::remove(size_t idx)
 
 void PauseVec::remove_val(int val)
 {
+    for (size_t i = 0; i < size; i++)
+    {
+        if (arr[i] == val)
+        {
+            arr[i] = -1;
+            num_items -= 1;
+            int temp_i = i;
+            if (temp_i < earliest_deletion)
+            {
+                earliest_deletion = temp_i;
+            }
+        }
+        if (num_items = size / 2)
+        {
+            shift();
+            resize(size / 2);
+        }
+    }
 }
 
 PauseVec *create_pausevec()
