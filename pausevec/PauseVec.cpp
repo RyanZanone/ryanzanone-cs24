@@ -193,11 +193,6 @@ void PauseVec::remove_val(int val)
                 earliest_deletion = temp_i;
             }
         }
-        if (num_items == size / 2)
-        {
-            shift();
-            resize(size / 2);
-        }
     }
 }
 
@@ -240,4 +235,8 @@ void PauseVec::shift()
         continue;
     }
     earliest_deletion = -1;
+    if (num_items == size / 2)
+    {
+        resize(size / 2);
+    }
 }
