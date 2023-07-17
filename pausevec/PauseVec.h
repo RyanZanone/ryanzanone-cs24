@@ -11,10 +11,10 @@ private:
   int *arr;
   size_t size;
   size_t num_items;
-  size_t deletions;
+  size_t deletion;
 
   void resize(size_t new_size);
-  void shift(size_t start, size_t end, int shift);
+  void shift(size_t end);
 
 public:
   PauseVec();

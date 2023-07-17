@@ -5,9 +5,10 @@ using namespace std;
 PauseVec::PauseVec()
 {
     arr = new int[1];
+    arr[0] = -1;
     size = 1;
     num_items = 0;
-    deletions = 0;
+    deletion = -1;
 }
 
 PauseVec::~PauseVec()
@@ -27,87 +28,62 @@ size_t PauseVec::count() const
 
 void PauseVec::push(int val)
 {
-    if (size - num_items == 0)
+    if (arr[size - 1] != -1) // if array has no more space
     {
         resize(size * 2);
+        arr[size - num_items - 1] = val;
+        num_items += 1;
+        shift(size - 1);
     }
-    arr[size - num_items - 1] = val;
-    num_items += 1;
+    else
+    {
+        arr[size - 1] = val;
+        shift(size - 1);
+    }
 }
 
 int PauseVec::lookup(size_t idx)
 {
-    if (idx > size - 1)
-    {
-        throw out_of_range("Invalid Index");
+    if (deletion == -1)
+    { // no deletions
+        if (idx > num_items - 1)
+        {
+            throw out_of_range("Invalid Index");
+        }
+        else
+        {
+            return arr[idx];
+        }
     }
-    else if (idx < deletions)
-    {
-        shift(0, idx - 1, -1);
-        deletions = idx;
+    else if (deletion < idx)
+    { // accessing index above idx
+        shift(size - 1);
+        if (arr[idx] == -1)
+        {
+            throw out_of_range("Invalid Index");
+        }
+        else
+        {
+            return arr[idx];
+        }
     }
-
-    return arr[idx];
+    else
+    {
+        return arr[idx];
+    }
 }
 
 void PauseVec::mutate(size_t idx, int val)
 {
-    if (idx >= num_items)
-    {
-        throw out_of_range("Index out of range");
-    }
-
-    if (idx < deletions)
-    {
-        shift(0, idx - 1, -1);
-        deletions = idx;
-    }
-
-    arr[idx] = idx;
 }
 
 int PauseVec::remove(size_t idx)
 {
-    if (idx >= num_items)
-    {
-        throw out_of_range("Index out of range");
-    }
-
-    if (idx < deletions)
-    {
-        shift(0, idx - 1, -1);
-        deletions = idx;
-    }
-
-    int value = arr[idx];
-    shift(idx + 1, num_items - 1, -1);
-    num_items--;
-
-    if (num_items <= size / 4)
-    {
-        resize(size / 2);
-    }
-
-    return value;
+    return 1;
 }
 
 void PauseVec::remove_val(int val)
 {
-    size_t write_idx = 0;
-    for (size_t read_idx = 0; read_idx < num_items; read_idx++)
-    {
-        if (arr[read_idx] != val)
-        {
-            arr[write_idx++] = arr[read_idx];
-        }
-    }
-
-    num_items = write_idx;
-
-    if (num_items <= size / 4)
-    {
-        resize(size / 2);
-    }
 }
 
 PauseVec *create_pausevec()
@@ -118,6 +94,10 @@ PauseVec *create_pausevec()
 void PauseVec::resize(size_t new_size)
 {
     int *temp_arr = new int[new_size];
+    for (size_t i = 0; i < new_size; i++)
+    {
+        temp_arr[i] = -1;
+    }
     for (size_t i = 0; i < size; i++)
     {
         temp_arr[i] = arr[i];
@@ -126,13 +106,28 @@ void PauseVec::resize(size_t new_size)
     arr = temp_arr;
     delete[] temp_arr;
     size = new_size;
-    deletions = 0;
+    deletion = 0;
 }
 
-void PauseVec::shift(size_t start, size_t end, int shift)
+void PauseVec::shift(size_t end)
 {
-    for (size_t i = start; i <= end; i++)
+    for (size_t i = 1; i < end;)
     {
-        arr[i + shift] = arr[i];
+        if (arr[i - 1] < 0)
+        {
+            arr[i - 1] = arr[i];
+            arr[i] = -1;
+            if (i != 1 && arr[i - 2] < 0)
+            {
+                i--;
+                continue;
+            }
+        }
+        i++;
+        continue;
+    }
+    if (num_items == size / 2)
+    {
+        resize(size / 2);
     }
 }
