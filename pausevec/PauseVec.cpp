@@ -67,6 +67,10 @@ int PauseVec::lookup(size_t idx)
         shift();
         return arr[idx];
     }
+    else
+    {
+        throw out_of_range("Invalid Index");
+    }
 }
 
 void PauseVec::mutate(size_t idx, int val)
