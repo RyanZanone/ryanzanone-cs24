@@ -210,20 +210,19 @@ void PauseVec::resize(size_t new_size)
 
 void PauseVec::shift()
 {
-    for (size_t i = 1; i < size;)
+    size_t j = 0;
+    for (size_t i = 0; i < size; i++)
     {
-        if (arr[i - 1] < 0)
+        if (arr[i] != -1)
         {
-            arr[i - 1] = arr[i];
-            arr[i] = -1;
-            if (i != 1 && arr[i - 2] < 0)
-            {
-                i--;
-                continue;
-            }
+            arr[j] = arr[i];
+            j++;
         }
-        i++;
-        continue;
+    }
+
+    for (size_t j; j < size; j++)
+    {
+        arr[j] = -1;
     }
     earliest_deletion = -1;
 }
