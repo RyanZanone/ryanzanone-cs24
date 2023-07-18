@@ -66,7 +66,7 @@ int PauseVec::lookup(size_t idx)
     {
         return arr[idx];
     }
-    else if (earliest_deletion <= temp_idx)
+    else if (earliest_deletion < temp_idx)
     {
         shift();
         return arr[idx];
