@@ -54,11 +54,15 @@ void PauseVec::push(int val)
 int PauseVec::lookup(size_t idx)
 {
     int temp_idx = idx;
-    if (idx > num_items - 1)
+    if (idx >= num_items)
     {
         throw out_of_range("Invalid Index");
     }
-    else if (earliest_deletion > temp_idx || earliest_deletion == -1)
+    else if (earliest_deletion == -1)
+    {
+        return arr[idx];
+    }
+    else if (earliest_deletion > temp_idx)
     {
         return arr[idx];
     }
