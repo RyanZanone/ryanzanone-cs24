@@ -31,28 +31,14 @@ void PauseVec::push(int val)
     if (size - num_items == 0) // if array is full
     {
         resize(size * 2);
-        arr[num_items] = val;
-        num_items += 1;
     }
-    else if (arr[size - 1] != -1)
+    if (earliest_deletion != -1)
     {
         shift();
-        arr[num_items] = val;
-        num_items += 1;
     }
-    else
-    {
-        size_t last_free_idx;
-        for (size_t i = 0; i < size; i++)
-        {
-            if (arr[size - 1 - i] != -1)
-            {
-                last_free_idx = size - 1 - i;
-            }
-        }
-        arr[last_free_idx] = val;
-        num_items += 1;
-    }
+
+    arr[num_items] = val;
+    num_items += 1;
 }
 
 int PauseVec::lookup(size_t idx)
