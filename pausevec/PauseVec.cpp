@@ -220,7 +220,7 @@ void PauseVec::shift()
         }
     }
 
-    for (size_t j; j < size; j++)
+    for (; j < size; j++)
     {
         arr[j] = -1;
     }
