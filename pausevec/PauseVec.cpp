@@ -50,7 +50,7 @@ void PauseVec::push(int val)
                 last_free_idx = size - 1 - i;
             }
         }
-        arr[size - 1] = val;
+        arr[last_free_idx] = val;
         num_items += 1;
     }
 }
