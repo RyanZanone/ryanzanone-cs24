@@ -42,11 +42,15 @@ void PauseVec::push(int val)
     }
     else
     {
-        arr[size - 1] = val;
-        if (size - num_items != 0)
+        size_t last_free_idx;
+        for (size_t i = 0; i < size; i++)
         {
-            shift();
+            if (arr[size - 1 - i] != -1)
+            {
+                last_free_idx = size - 1 - i;
+            }
         }
+        arr[size - 1] = val;
         num_items += 1;
     }
 }
@@ -66,7 +70,7 @@ int PauseVec::lookup(size_t idx)
     {
         return arr[idx];
     }
-    else if (earliest_deletion < temp_idx)
+    else if (earliest_deletion <= temp_idx)
     {
         shift();
         return arr[idx];
