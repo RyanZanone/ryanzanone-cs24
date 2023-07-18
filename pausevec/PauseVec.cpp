@@ -190,9 +190,19 @@ void PauseVec::resize(size_t new_size)
     {
         temp_arr[i] = -1;
     }
-    for (size_t i = 0; i < size; i++)
-    {
-        temp_arr[i] = arr[i];
+    if (new_size > size)
+    { // sizing up
+        for (size_t i = 0; i < size; i++)
+        {
+            temp_arr[i] = arr[i];
+        }
+    }
+    else
+    { // sizing down
+        for (size_t i = 0; i < new_size; i++)
+        {
+            temp_arr[i] = arr[i];
+        }
     }
     delete[] arr;
     arr = temp_arr;
