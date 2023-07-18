@@ -56,7 +56,7 @@ int PauseVec::lookup(size_t idx)
     int temp_idx = idx;
     if (earliest_deletion == -1)
     { // no deletions
-        if (arr[idx] == -1 || idx > size - 1)
+        if (idx > num_items - 1)
         {
             throw out_of_range("Invalid Index");
         }
@@ -71,13 +71,13 @@ int PauseVec::lookup(size_t idx)
     }
     else if (earliest_deletion <= temp_idx)
     {
-        shift();
-        if (arr[idx] == -1)
+        if (idx > num_items - 1)
         {
             throw out_of_range("Invalid Index");
         }
         else
         {
+            shift();
             return arr[idx];
         }
     }
