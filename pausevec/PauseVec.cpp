@@ -138,7 +138,6 @@ int PauseVec::remove(size_t idx)
         arr[idx] = -1;
         if (num_items <= size / 4)
         {
-            shift();
             resize(size / 2);
         }
         return removed_val;
