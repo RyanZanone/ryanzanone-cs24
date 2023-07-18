@@ -114,28 +114,17 @@ int PauseVec::remove(size_t idx)
 {
     int temp_idx = idx;
     int removed_val;
-    if (idx > size - 1)
+    if (idx > num_items - 1)
     {
         throw out_of_range("Invalid Index");
     }
     else if (earliest_deletion == -1)
     {
-        if (arr[idx] == -1)
-        {
-            throw out_of_range("Invalid Index");
-        }
-        else
-        {
-            earliest_deletion = idx;
-            num_items -= 1;
-            removed_val = arr[idx];
-            arr[idx] = -1;
-            if (num_items == size / 2)
-            {
-                resize(size / 2);
-            }
-            return removed_val;
-        }
+        earliest_deletion = idx;
+        num_items -= 1;
+        removed_val = arr[idx];
+        arr[idx] = -1;
+        return removed_val;
     }
     else if (earliest_deletion > temp_idx)
     {
@@ -148,21 +137,10 @@ int PauseVec::remove(size_t idx)
     else if (earliest_deletion <= temp_idx)
     {
         shift();
-        if (arr[idx] == -1)
-        {
-            throw out_of_range("Invalid Index");
-        }
-        else
-        {
-            num_items -= 1;
-            removed_val = arr[idx];
-            arr[idx] = -1;
-            if (num_items == size / 2)
-            {
-                resize(size / 2);
-            }
-            return removed_val;
-        }
+        num_items -= 1;
+        removed_val = arr[idx];
+        arr[idx] = -1;
+        return removed_val;
     }
     else
     {
