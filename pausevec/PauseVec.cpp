@@ -54,36 +54,18 @@ void PauseVec::push(int val)
 int PauseVec::lookup(size_t idx)
 {
     int temp_idx = idx;
-    if (earliest_deletion == -1)
-    { // no deletions
-        if (idx > num_items - 1)
-        {
-            throw out_of_range("Invalid Index");
-        }
-        else
-        {
-            return arr[idx];
-        }
+    if (idx > num_items - 1)
+    {
+        throw out_of_range("Invalid Index");
     }
-    else if (earliest_deletion > temp_idx)
+    else if (earliest_deletion > temp_idx || earliest_deletion == -1)
     {
         return arr[idx];
     }
     else if (earliest_deletion <= temp_idx)
     {
-        if (idx > num_items - 1)
-        {
-            throw out_of_range("Invalid Index");
-        }
-        else
-        {
-            shift();
-            return arr[idx];
-        }
-    }
-    else
-    {
-        throw out_of_range("Invalid Index");
+        shift();
+        return arr[idx];
     }
 }
 
