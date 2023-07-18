@@ -203,8 +203,4 @@ void PauseVec::shift()
         arr[j] = -1;
     }
     earliest_deletion = -1;
-    if (num_items <= size / 2)
-    {
-        resize(size / 2);
-    }
 }
