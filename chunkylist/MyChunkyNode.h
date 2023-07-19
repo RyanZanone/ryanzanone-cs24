@@ -3,8 +3,7 @@
 
 #include "ChunkyNode.h"
 
-class MyChunkyNode : public ChunkyNode
-{
+class MyChunkyNode : public ChunkyNode {
 private:
   int num_items;          // number of items in the list
   std::string *chunk;     // items stored in this node as a C array
@@ -21,8 +20,10 @@ public:
   std::string *items() const;
   MyChunkyNode *prev() const;
   MyChunkyNode *next() const;
+  void insert(int index, const std::string &item);
 
-  // TODO: Add any other member functions you need.
+  void split();
+  void merge();
 };
 
 #endif
