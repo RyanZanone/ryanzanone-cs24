@@ -6,8 +6,7 @@
 // This file describes the ChunkyNode interface you need to implement.
 // Don't edit this!  Your code goes in the .cpp files.
 
-class ChunkyNode
-{
+class ChunkyNode {
 public:
   // Returns the number of items stored in this Node.
   virtual int count() const = 0;
