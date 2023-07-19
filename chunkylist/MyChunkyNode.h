@@ -2,6 +2,7 @@
 #define MYCHUNKYNODE_H
 
 #include "ChunkyNode.h"
+#include <stdexcept>
 
 class MyChunkyNode : public ChunkyNode {
 private:

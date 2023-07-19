@@ -36,7 +36,7 @@ std::string& MyChunkyList::lookup(int index) {
 }
 
 void MyChunkyList::remove(int index) {
-    
+
 }
 
 
