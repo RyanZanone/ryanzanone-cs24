@@ -12,13 +12,13 @@ public:
   virtual int count() const = 0;
 
   // Returns the items at this node as a C array.
-  virtual std::string *items() const = 0;
+  virtual std::string* items() const = 0;
 
   // Returns a pointer to the Node before this one, or nullptr.
-  virtual ChunkyNode *prev() const = 0;
+  virtual ChunkyNode* prev() const = 0;
 
   // Returns a pointer to the Node after this one, or nullptr.
-  virtual ChunkyNode *next() const = 0;
+  virtual ChunkyNode* next() const = 0;
 
   // Don't forget!
   virtual ~ChunkyNode() {}
