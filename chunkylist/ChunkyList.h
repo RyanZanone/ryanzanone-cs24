@@ -16,10 +16,10 @@ public:
   virtual int count() const = 0;
 
   // Returns a pointer to the first Node in the list, or nullptr.
-  virtual ChunkyNode *head() const = 0;
+  virtual ChunkyNode* head() const = 0;
 
   // Returns a pointer to the last Node in the list, or nullptr.
-  virtual ChunkyNode *tail() const = 0;
+  virtual ChunkyNode* tail() const = 0;
 
   // Inserts an item at index.
   // Throws std::out_of_range if index is negative or > count().
