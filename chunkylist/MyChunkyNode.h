@@ -3,18 +3,24 @@
 
 #include "ChunkyNode.h"
 
-class MyChunkyNode: public ChunkyNode {
-  // TODO: Add any member variables you need.
+class MyChunkyNode : public ChunkyNode
+{
+private:
+  int num_items;          // number of items in the list
+  std::string *chunk;     // items stored in this node as a C array
+  MyChunkyNode *prev_ref; // pointer to the previous node in the list
+  MyChunkyNode *next_ref; // pointer to the next node in the array
+
 public:
-  // TODO: Constructor(s)
-  // TODO: Destructor
+  MyChunkyNode();  // Constructor
+  ~MyChunkyNode(); // Destructor;
 
   // These functions are needed by the autograder.
   // See ChunkyNode.h for their descriptions.
-  int           count() const;
-  std::string*  items() const;
-  MyChunkyNode* prev()  const;
-  MyChunkyNode* next()  const;
+  int count() const;
+  std::string *items() const;
+  MyChunkyNode *prev() const;
+  MyChunkyNode *next() const;
 
   // TODO: Add any other member functions you need.
 };
