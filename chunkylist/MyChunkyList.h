@@ -26,7 +26,7 @@ public:
   MyChunkyNode *head() const;
   MyChunkyNode *tail() const;
 
-  // TODO: Add any other member functions you need.
+  void set_tail(MyChunkyNode* new_tail);
 };
 
 #endif
