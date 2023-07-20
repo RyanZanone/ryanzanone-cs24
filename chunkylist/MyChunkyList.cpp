@@ -29,9 +29,14 @@ void MyChunkyList::insert(int index, const std::string &item) {
     if(index < 0 || index > this->count()) {
         throw std::out_of_range("Invalid Index");
     }
-    else if (head_ref == nullptr) { // list is empty
-        head_ref = new MyChunkyNode(chunksize);
-        tail_ref = head_ref;
+    else if (head_ref == nullptr && index > chunksize - 1) { // list is empty, but no such index is available
+        throw std::out_of_range("Invalid Index");
+    }
+    else if (head_ref == nullptr) { // list is empty, index is valid
+        MyChunkyNode* newnode = new MyChunkyNode(chunksize);
+        head_ref = newnode;
+        tail_ref = newnode;
+        newnode->insert(index, item);
     }
     else if (index == 0 && head_ref->count() == chunksize) { // inserting at beginning and node is full
         MyChunkyNode *newnode = new MyChunkyNode(chunksize);
