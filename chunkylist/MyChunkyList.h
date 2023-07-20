@@ -5,7 +5,6 @@
 #include "MyChunkyNode.h"
 
 class MyChunkyList : public ChunkyList {
-private:
   int num_nodes;
   int chunksize;
   int num_items; // number of items, not nodes in list

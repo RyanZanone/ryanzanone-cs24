@@ -5,14 +5,14 @@
 #include <stdexcept>
 
 class MyChunkyNode : public ChunkyNode {
-private:
-  int num_items;          // number of items in the list
+  int num_items; // number of items in the list, not nodes
+  int chunksize; 
   std::string *chunk;     // items stored in this node as a C array
   MyChunkyNode *prev_ref; // pointer to the previous node in the list
   MyChunkyNode *next_ref; // pointer to the next node in the array
 
 public:
-  MyChunkyNode();  // Constructor
+  MyChunkyNode(int chunksize);  // Constructor
   ~MyChunkyNode(); // Destructor;
 
   // These functions are needed by the autograder.
@@ -25,6 +25,8 @@ public:
 
   void split();
   void merge();
+  void shift_remove(int start);
+  void shift_insert(int start);
 };
 
 #endif
