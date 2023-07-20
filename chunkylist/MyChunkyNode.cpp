@@ -51,7 +51,6 @@ void MyChunkyNode::split() {
     newnode->next_ref = this->next_ref;
     // transfer over data
     int splitindex = num_items / 2;
-    int remaining_items = num_items - splitindex;
     for(int i = splitindex; i < num_items; i++) {
         newnode->insert(i - splitindex, chunk[i]);
         chunk[i] = "";
@@ -97,8 +96,4 @@ void MyChunkyNode::shift_insert(int start) {
         chunk[i - 1] = "";
         chunk[i] = tempitem;
     }
-}
-
-void MyChunkyNode::list_restructure(MyChunkyNode* currnode) {
-
 }
