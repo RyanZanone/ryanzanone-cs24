@@ -37,16 +37,19 @@ void MyChunkyList::insert(int index, const std::string &item) {
         head_ref = newnode;
         tail_ref = newnode;
         newnode->insert(index, item);
+        num_items += 1;
     }
     else if (index == 0 && head_ref->count() == chunksize) { // inserting at beginning and node is full
         MyChunkyNode *newnode = new MyChunkyNode(chunksize);
-        newnode->insert(0, item);
         tail_ref = newnode;
+        newnode->insert(0, item);
+        num_items += 1;
     }
     else if (index == num_items - 1 && tail_ref->count() == chunksize) { // inserting at end and node is full
         MyChunkyNode *newnode = new MyChunkyNode(chunksize);
-        newnode->insert(0, item);
         tail_ref = newnode;
+        newnode->insert(0, item);
+        num_items += 1;
     }
     else {
         MyChunkyNode *currnode = head_ref;
@@ -64,6 +67,7 @@ void MyChunkyList::insert(int index, const std::string &item) {
             }
         }
         currnode->insert(index, item);
+        num_items += 1;
     }
 }
 
