@@ -127,13 +127,8 @@ void MyChunkyList::remove(int index) {
         throw std::out_of_range("Invalid Index");
     }
     else {
-        currnode->items()[nodeindex] = ""; // remove item
+        currnode->remove(index);
         num_items -= 1;
-        currnode->shift_remove(nodeindex);
-
-        if(currnode->count() <= chunksize / 2) {
-            currnode->merge();
-        }
     }
 }
 

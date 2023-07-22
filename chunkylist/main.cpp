@@ -13,16 +13,19 @@ int main() {
   list->insert(3, "4");
   list->insert(4, "5");
   list->insert(5, "6");
-  list->insert(6, "1");
-  list->insert(7, "2");
-  list->insert(8, "3");
-  list->insert(9, "4");
-  list->insert(10, "5");
-  list->insert(11, "1");
-  list->insert(12, "2");
-  list->insert(13, "3");
-  list->insert(14, "4");
-
+  list->insert(6, "7");
+  list->insert(7, "8");
+  list->insert(8, "9");
+  list->insert(9, "10");
+  list->insert(10, "11");
+  list->insert(11, "12");
+  list->insert(12, "13");
+  list->insert(13, "14");
+  list->insert(14, "15");
+  list->insert(6, "16");
+  
+  std::cout << list->lookup(6) << std::endl;
+  std::cout << list->count();
 
   delete list;
 }

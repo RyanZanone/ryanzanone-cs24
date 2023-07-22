@@ -23,6 +23,7 @@ public:
   MyChunkyNode *next() const;
   void insert(int index, const std::string &item);
 
+  void remove(int index);
   void split();
   void merge();
   void shift_remove(int start);

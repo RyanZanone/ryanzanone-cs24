@@ -54,6 +54,21 @@ void MyChunkyNode::insert(int index, const std::string &item) {
     }
 }
 
+void MyChunkyNode::remove(int index) {
+    if(index == num_items - 1) { // deleting last item, no shifting
+        chunk[chunksize - 1] = "";
+        num_items -= 1;
+    }
+    else {
+        shift_remove(index);
+        chunk[index] = "";
+        num_items -= 1;
+    }
+    if(num_items <= chunksize / 2) { // node is empty
+        merge();
+    } 
+}
+
 void MyChunkyNode::split() {
     // Create new node
     MyChunkyNode* newnode = new MyChunkyNode(chunksize);
