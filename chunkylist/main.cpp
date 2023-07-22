@@ -8,9 +8,11 @@ int main() {
   ChunkyList* list = ChunkyList::create(5);
 
   list->insert(0, "1");
-  std::cout << list->lookup(0) << std::endl;
-  list->remove(0);
-  std::cout << list->lookup(0) << std::endl;
+  list->insert(1, "2");
+  list->insert(2, "3");
+  list->insert(3, "4");
+  list->insert(4, "5");
+  list->insert(5, "6");
 
   delete list;
 }

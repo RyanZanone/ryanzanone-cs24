@@ -25,7 +25,6 @@ public:
   MyChunkyNode *head() const;
   MyChunkyNode *tail() const;
 
-  void set_tail(MyChunkyNode* new_tail);
 };
 
 #endif

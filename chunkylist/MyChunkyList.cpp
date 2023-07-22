@@ -29,30 +29,30 @@ MyChunkyNode* MyChunkyList::tail() const {
 }
 
 void MyChunkyList::insert(int index, const std::string &item) {
-    if(index < 0 || index > this->count()) {
+    if(index < 0 || index > num_items) {
         throw std::out_of_range("Invalid Index");
     }
     else if (head_ref == nullptr) { // list is empty
         MyChunkyNode* newnode = new MyChunkyNode(chunksize);
         head_ref = newnode;
         tail_ref = newnode;
-        head_ref->insert(index, item);
+        head_ref->insert(0, item);
         num_items += 1;
     }
     else if (index == 0 && head_ref->count() == chunksize) { // inserting at beginning and node is full
         MyChunkyNode *newnode = new MyChunkyNode(chunksize);
-        tail_ref = newnode;
-        tail_ref->insert(0, item);
-        tail_ref->set_next(newnode);
-        newnode->set_prev(newnode);
-        num_items += 1;
-    }
-    else if (index == num_items - 1 && tail_ref->count() == chunksize) { // inserting at end and node is full
-        MyChunkyNode *newnode = new MyChunkyNode(chunksize);
-        tail_ref = newnode;
-        tail_ref->insert(0, item);
+        newnode->insert(0, item);
         tail_ref->set_next(newnode);
         newnode->set_prev(tail_ref);
+        tail_ref = newnode;
+        num_items += 1;
+    }
+    else if (index == num_items && tail_ref->count() == chunksize) { // inserting at end and node is full
+        MyChunkyNode *newnode = new MyChunkyNode(chunksize);
+        newnode->insert(0, item);
+        tail_ref->set_next(newnode);
+        newnode->set_prev(tail_ref);
+        tail_ref = newnode;
         num_items += 1;
     }
     else {
@@ -133,7 +133,4 @@ void MyChunkyList::remove(int index) {
     }
 }
 
-void MyChunkyList::set_tail(MyChunkyNode* new_tail) {
-    tail_ref = new_tail;
-}
 
