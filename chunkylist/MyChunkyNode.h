@@ -27,7 +27,9 @@ public:
   void merge();
   void shift_remove(int start);
   void shift_insert(int start);
-  
+  void set_next(MyChunkyNode* newnext);
+  void set_prev(MyChunkyNode* newprev);
+
 };
 
 #endif

@@ -114,3 +114,11 @@ void MyChunkyNode::shift_insert(int start) {
         chunk[i] = tempitem;
     }
 }
+
+void MyChunkyNode::set_next(MyChunkyNode* newnext) {
+    next_ref = newnext;
+}
+
+void MyChunkyNode::set_prev(MyChunkyNode* newprev) {
+    prev_ref = newprev;
+}

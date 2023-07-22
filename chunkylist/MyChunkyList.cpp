@@ -43,12 +43,14 @@ void MyChunkyList::insert(int index, const std::string &item) {
         MyChunkyNode *newnode = new MyChunkyNode(chunksize);
         tail_ref = newnode;
         tail_ref->insert(0, item);
+        tail_ref->set_next(newnode);
         num_items += 1;
     }
     else if (index == num_items - 1 && tail_ref->count() == chunksize) { // inserting at end and node is full
         MyChunkyNode *newnode = new MyChunkyNode(chunksize);
         tail_ref = newnode;
         tail_ref->insert(0, item);
+        tail_ref->set_next(newnode);
         num_items += 1;
     }
     else {
@@ -122,7 +124,7 @@ void MyChunkyList::remove(int index) {
         currnode->items()[nodeindex] = ""; // remove item
         num_items -= 1;
         currnode->shift_remove(nodeindex);
-        
+
         if(currnode->count() <= chunksize / 2) {
             currnode->merge();
         }
