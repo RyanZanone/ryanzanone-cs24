@@ -104,6 +104,10 @@ std::string& MyChunkyList::lookup(int index) {
 }
 
 void MyChunkyList::remove(int index) {
+    if(index > num_items - 1 || index < 0) {
+        throw std::out_of_range("Invalid Index");
+    }
+
     MyChunkyNode *currnode = head_ref;
     int listindex = 0;
     int nodeindex = 0;
