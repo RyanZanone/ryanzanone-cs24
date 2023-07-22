@@ -8,8 +8,12 @@ MyChunkyList::MyChunkyList(int chunksize) {
 }
 
 MyChunkyList::~MyChunkyList() {
-    delete head_ref;
-    delete tail_ref;
+    MyChunkyNode* current = head_ref;
+    while (current != nullptr) {
+        MyChunkyNode* next = current->next();
+        delete current;
+        current = next;
+    }
 }
 
 int MyChunkyList::count() const {
@@ -32,21 +36,18 @@ void MyChunkyList::insert(int index, const std::string &item) {
         MyChunkyNode* newnode = new MyChunkyNode(chunksize);
         head_ref = newnode;
         tail_ref = newnode;
-        delete newnode;
         head_ref->insert(index, item);
         num_items += 1;
     }
     else if (index == 0 && head_ref->count() == chunksize) { // inserting at beginning and node is full
         MyChunkyNode *newnode = new MyChunkyNode(chunksize);
         tail_ref = newnode;
-        delete newnode;
         tail_ref->insert(0, item);
         num_items += 1;
     }
     else if (index == num_items - 1 && tail_ref->count() == chunksize) { // inserting at end and node is full
         MyChunkyNode *newnode = new MyChunkyNode(chunksize);
         tail_ref = newnode;
-        delete newnode;
         tail_ref->insert(0, item);
         num_items += 1;
     }
