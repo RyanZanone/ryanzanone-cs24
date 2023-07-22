@@ -3,7 +3,6 @@
 MyChunkyList::MyChunkyList(int chunksize) {
     this->chunksize = chunksize;
     num_items = 0;
-    num_nodes = 0;
     head_ref = nullptr;
     tail_ref = nullptr;
 }
@@ -29,26 +28,26 @@ void MyChunkyList::insert(int index, const std::string &item) {
     if(index < 0 || index > this->count()) {
         throw std::out_of_range("Invalid Index");
     }
-    else if (head_ref == nullptr && index > chunksize - 1) { // list is empty, but no such index is available
-        throw std::out_of_range("Invalid Index");
-    }
-    else if (head_ref == nullptr) { // list is empty, index is valid
+    else if (head_ref == nullptr) { // list is empty
         MyChunkyNode* newnode = new MyChunkyNode(chunksize);
         head_ref = newnode;
         tail_ref = newnode;
-        newnode->insert(index, item);
+        delete newnode;
+        head_ref->insert(index, item);
         num_items += 1;
     }
     else if (index == 0 && head_ref->count() == chunksize) { // inserting at beginning and node is full
         MyChunkyNode *newnode = new MyChunkyNode(chunksize);
         tail_ref = newnode;
-        newnode->insert(0, item);
+        delete newnode;
+        tail_ref->insert(0, item);
         num_items += 1;
     }
     else if (index == num_items - 1 && tail_ref->count() == chunksize) { // inserting at end and node is full
         MyChunkyNode *newnode = new MyChunkyNode(chunksize);
         tail_ref = newnode;
-        newnode->insert(0, item);
+        delete newnode;
+        tail_ref->insert(0, item);
         num_items += 1;
     }
     else {
@@ -57,7 +56,9 @@ void MyChunkyList::insert(int index, const std::string &item) {
         int nodeindex = 0;
         
         while(listindex != index && currnode != nullptr) { // iterate through to find which node index is in
-            listindex += 1;
+            if(currnode->items()[nodeindex] != "") {
+                            listindex += 1;
+            }
             if(nodeindex == chunksize - 1) { // reached the end of the current node
                 currnode = currnode->next(); // move onto next node
                 nodeindex = 0; // reset node index
@@ -66,19 +67,25 @@ void MyChunkyList::insert(int index, const std::string &item) {
                 nodeindex += 1;
             }
         }
-        currnode->insert(index, item);
+        currnode->insert(nodeindex, item);
         num_items += 1;
     }
 }
 
 std::string& MyChunkyList::lookup(int index) {
+    if(index > num_items - 1 || index < 0) {
+        throw std::out_of_range("Invalid Index");
+    }
+
     MyChunkyNode *currnode = head_ref;
     int listindex = 0;
     int nodeindex = 0;
     
     while(listindex != index && currnode != nullptr) {
-        listindex += 1;
-        if(nodeindex == chunksize - 1) {
+        if (currnode->items()[nodeindex] != "") {
+            listindex += 1;
+        }
+        if(nodeindex == chunksize - 1 || currnode->items()[nodeindex] == "") {
             currnode = currnode->next();
             nodeindex = 0;
         }
@@ -87,15 +94,7 @@ std::string& MyChunkyList::lookup(int index) {
         }
     }
 
-    if (currnode == nullptr) { // reached end of list, no such index
-        throw std::out_of_range("Invalid Index");
-    }
-    else if (currnode->items()[nodeindex] == "") { // empty string, no such item
-        throw std::out_of_range("Invalid Index");
-    }
-    else {
-        return currnode->items()[nodeindex];
-    }
+    return currnode->items()[nodeindex];
         
 }
 
