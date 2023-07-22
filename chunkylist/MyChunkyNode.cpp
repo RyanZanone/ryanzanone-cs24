@@ -10,6 +10,14 @@ MyChunkyNode::MyChunkyNode(int chunksize) {
 
 MyChunkyNode::~MyChunkyNode() {
     delete[] chunk;
+
+    if (prev_ref != nullptr) {
+        prev_ref->next_ref = next_ref;
+    }
+
+    if (next_ref != nullptr) {
+        next_ref->prev_ref = prev_ref;
+    }
 }
 
 int MyChunkyNode::count() const {
@@ -47,11 +55,13 @@ void MyChunkyNode::insert(int index, const std::string &item) {
 void MyChunkyNode::split() {
     // Create new node
     MyChunkyNode* newnode = new MyChunkyNode(chunksize);
-    // Restructure node order
+    // Update linked list pointers
     newnode->prev_ref = this;
     newnode->next_ref = next_ref;
+    if(next_ref != nullptr) {
+        next_ref->prev_ref = newnode;
+    }
     next_ref = newnode;
-    delete newnode;
     // transfer over data
     int splitindex = num_items / 2;
     for(int i = splitindex; i < num_items; i++) {
@@ -59,36 +69,34 @@ void MyChunkyNode::split() {
         chunk[i] = "";
     }
     //update num_items in original node
-    if(num_items % 2 == 0) {
-        num_items -= splitindex;
-    }
-    else {
-        num_items = num_items - splitindex - 1;
-    }
+    next_ref->num_items = num_items - splitindex;
+    num_items = splitindex;
 }
 
 void MyChunkyNode::merge() {
     if(prev_ref->count() <= chunksize / 2) {
+        // transfer previous node's data to current node
         int mergeindex = chunksize / 2;
         for (int i = mergeindex; i < chunksize; i++) {
-            chunk[i] = prev_ref->chunk[chunksize - mergeindex];
+            insert(i, prev_ref->chunk[i]);
         }
-        prev_ref->prev_ref->next_ref = this;
-        MyChunkyNode* tempnode = prev_ref;
+        // update linked list pointers
+        if (prev_ref->prev_ref != nullptr) {
+            prev_ref->prev_ref->next_ref = this;
+        }
         prev_ref = prev_ref->prev_ref;
-        delete[] tempnode;
     }
-    else if(next_ref->count() <= chunksize / 2) {
+    else if (next_ref->count() <= chunksize / 2) {
         int mergeindex = chunksize / 2;
         for (int i = mergeindex; i < chunksize; i++) {
-            chunk[i] = next_ref->chunk[chunksize - mergeindex];
+            insert(i, next_ref->chunk[i]);
         }
-        next_ref->next_ref->prev_ref = this;
-        MyChunkyNode* tempnode = next_ref;
+        // update linked list pointers
+        if (next_ref->next_ref != nullptr) {
+            next_ref->next_ref->prev_ref = this;
+        }
         next_ref = next_ref->next_ref;
-        delete[] tempnode;
     }
-
 }
 
 void MyChunkyNode::shift_remove(int start) {
