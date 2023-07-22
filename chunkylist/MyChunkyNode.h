@@ -27,6 +27,7 @@ public:
   void merge();
   void shift_remove(int start);
   void shift_insert(int start);
+  
 };
 
 #endif

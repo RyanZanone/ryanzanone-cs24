@@ -115,15 +115,14 @@ void MyChunkyList::remove(int index) {
         }
     }
 
-    if(currnode == nullptr) {
-        throw std::out_of_range("Invalid Index");
-    }
-    else if(currnode->items()[nodeindex] == "") {
+    if(currnode == nullptr || currnode->items()[nodeindex] == "") {
         throw std::out_of_range("Invalid Index");
     }
     else {
         currnode->items()[nodeindex] = ""; // remove item
+        num_items -= 1;
         currnode->shift_remove(nodeindex);
+        
         if(currnode->count() <= chunksize / 2) {
             currnode->merge();
         }

@@ -7,8 +7,10 @@
 int main() {
   ChunkyList* list = ChunkyList::create(5);
 
-  // TODO: Replace this with code to test your list!
-  std::cout << "This program doesn't do anything yet...\n";
+  list->insert(0, "1");
+  std::cout << list->lookup(0) << std::endl;
+  list->remove(0);
+  std::cout << list->lookup(0) << std::endl;
 
   delete list;
 }
