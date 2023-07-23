@@ -38,9 +38,7 @@ MyChunkyNode* MyChunkyNode::next() const {
 
 void MyChunkyNode::insert(int index, const std::string &item) {
     if(num_items == chunksize) { // node is full
-        split();
-        shift_insert(index);
-        chunk[index] = item;
+        split_insert(index, item);
         num_items += 1;
     }
     else if (chunk[index] == "") {
@@ -69,9 +67,16 @@ void MyChunkyNode::remove(int index) {
     } 
 }
 
-void MyChunkyNode::split() {
+void MyChunkyNode::split_insert(int index, const std::string &item) {
     // Create new node
     MyChunkyNode* newnode = new MyChunkyNode(chunksize);
+    MyChunkyNode* tempnode = new MyChunkyNode(chunksize + 1);
+    // Copy values over to tempnode
+    for(int i = 0; i < chunksize; i++) {
+        tempnode->insert(i, chunk[i]);
+    }
+    // Insert new value at appropriate spot in tempnode
+    tempnode->insert(index, item);
     // Update linked list pointers
     newnode->prev_ref = this;
     newnode->next_ref = next_ref;
@@ -80,14 +85,20 @@ void MyChunkyNode::split() {
     }
     next_ref = newnode;
     // transfer over data
-    int splitindex = num_items / 2;
-    for(int i = splitindex; i < num_items; i++) {
-        newnode->insert(i - splitindex, chunk[i]);
-        chunk[i] = "";
+    if (tempnode->count() % 2 == 0) { // even items
+        int splitindex = tempnode->count() / 2;
+        for(int i = splitindex; i < num_items; i++) {
+            newnode->insert(i - splitindex, tempnode->chunk[i]);
+            chunk[i] = "";
+        }
     }
-    //update num_items in original node
-    newnode->num_items = num_items - splitindex;
-    num_items = splitindex;
+    else { // odd items
+        int splitindex = (tempnode->count() / 2) + 1;
+        for(int i = splitindex; i < num_items; i++) {
+            newnode->insert(i - splitindex, chunk[i]);
+            chunk[i] = "";
+        }
+    }
 }
 
 void MyChunkyNode::merge() {

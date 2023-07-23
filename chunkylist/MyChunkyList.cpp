@@ -62,7 +62,7 @@ void MyChunkyList::insert(int index, const std::string &item) {
         
         while(listindex != index && currnode != nullptr) { // iterate through to find which node index is in
             if(currnode->items()[nodeindex] != "") {
-                            listindex += 1;
+                listindex += 1;
             }
             if(nodeindex == chunksize - 1) { // reached the end of the current node
                 currnode = currnode->next(); // move onto next node
