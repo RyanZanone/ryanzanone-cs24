@@ -38,7 +38,11 @@ MyChunkyNode* MyChunkyNode::next() const {
 
 void MyChunkyNode::insert(int index, const std::string &item) {
     if(num_items == chunksize) { // node is full
-        split_insert(index, item);
+        split();
+        if(index > num_items) {
+            index -= num_items;
+            next_ref->insert(index, item);
+        }
     }
     else if (chunk[index] == "") {
         chunk[index] = item;
@@ -66,16 +70,9 @@ void MyChunkyNode::remove(int index) {
     } 
 }
 
-void MyChunkyNode::split_insert(int index, const std::string &item) {
+void MyChunkyNode::split() {
     // Create new node
     MyChunkyNode* newnode = new MyChunkyNode(chunksize);
-    MyChunkyNode* tempnode = new MyChunkyNode(chunksize + 1);
-    // Copy values over to tempnode
-    for(int i = 0; i < chunksize; i++) {
-        tempnode->insert(i, chunk[i]);
-    }
-    // Insert new value at appropriate spot in tempnode
-    tempnode->insert(index, item);
     // Update linked list pointers
     newnode->prev_ref = this;
     newnode->next_ref = next_ref;
@@ -83,27 +80,22 @@ void MyChunkyNode::split_insert(int index, const std::string &item) {
         next_ref->prev_ref = newnode;
     }
     next_ref = newnode;
-    // transfer over data
-    if (tempnode->count() % 2 == 0) { // even items
-        int splitindex = tempnode->count() / 2;
-        for(int i = splitindex; i < num_items; i++) {
-            newnode->insert(i - splitindex, tempnode->chunk[i]);
+    // Copy over data
+    int splitindex = chunksize / 2;
+    if(num_items % 2 == 0) { // even number of items, make both have the same amount
+        for(int i = splitindex; i < chunksize; i++) {
+            newnode->insert(i, chunk[i]);
             chunk[i] = "";
+            num_items -= 1;
         }
-        num_items = (chunksize / 2) + 1;
-        newnode->num_items = (chunksize / 2) + 1;
     }
-    else { // odd items
-        int splitindex = (tempnode->count() / 2) + 1;
-        for(int i = splitindex; i < num_items; i++) {
-            newnode->insert(i - splitindex, chunk[i]);
+    else {
+        for(int i = splitindex + 1; i < chunksize; i++) {
+            newnode->insert(i, chunk[i]);
             chunk[i] = "";
+            num_items -= 1;
         }
-        num_items = (chunksize / 2) + 1;
-        newnode->num_items = chunksize / 2;
     }
-    delete tempnode;
-
 }
 
 void MyChunkyNode::merge() {

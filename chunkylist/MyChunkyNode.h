@@ -24,7 +24,7 @@ public:
   void insert(int index, const std::string &item);
 
   void remove(int index);
-  void split_insert(int index, const std::string &item);
+  void split();
   void merge();
   void shift_remove(int start);
   void shift_insert(int start);
