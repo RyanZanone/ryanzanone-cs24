@@ -155,6 +155,7 @@ void MyChunkyList::remove(int index) {
     }
     else {
         currnode->remove(nodeindex);
+        num_items -= 1;
     }
 }
 
