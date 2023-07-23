@@ -83,24 +83,6 @@ void MyChunkyNode::split_insert(int index, const std::string &item) {
         newnode->insert(i - splitindex, tempnode->items()[i]);
     }
 
-
-
-
-    int splitindex;
-    if(num_items % 2 == 0) {
-        splitindex = num_items / 2;
-    }
-    else {
-        splitindex = (num_items + 1) / 2;
-    }
-    int j = 0;
-    for(int i = splitindex; i < chunksize; i++) {
-        newnode->insert(j, chunk[i]);
-        chunk[i] = "";
-        j++;
-    }
-    // Update num_items in original node
-    num_items = splitindex;
 }
 
 void MyChunkyNode::merge() {
