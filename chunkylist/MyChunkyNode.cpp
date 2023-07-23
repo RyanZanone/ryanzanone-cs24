@@ -82,10 +82,18 @@ void MyChunkyNode::split() {
     }
     next_ref = newnode;
     // Copy over data
-    int splitindex = (chunksize + 1) / 2;
+    int splitindex;
+    if(num_items % 2 == 0) {
+        splitindex = num_items / 2;
+    }
+    else {
+        splitindex = (num_items + 1) / 2;
+    }
+    int j = 0;
     for(int i = splitindex; i < chunksize; i++) {
-        newnode->insert(i - splitindex, chunk[i]);
+        newnode->insert(j, chunk[i]);
         chunk[i] = "";
+        j++;
     }
     // Update num_items in original node
     num_items = splitindex;
