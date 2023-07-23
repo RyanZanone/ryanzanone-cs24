@@ -38,21 +38,6 @@ void MyChunkyNode::insert(int index, const std::string &item) {
     num_items += 1;
 }
 
-void MyChunkyNode::remove(int index) {
-    if(index == num_items - 1) { // deleting last item, no shifting
-        chunk[chunksize - 1] = "";
-        num_items -= 1;
-    }
-    else {
-        shift_remove(index);
-        chunk[index] = "";
-        num_items -= 1;
-    }
-    if(num_items <= chunksize / 2) { // node is empty
-        merge();
-    } 
-}
-
 void MyChunkyNode::split_insert(int index, const std::string &item) {
     // Create new node
     MyChunkyNode* newnode = new MyChunkyNode(chunksize);
@@ -85,6 +70,17 @@ void MyChunkyNode::split_insert(int index, const std::string &item) {
     delete tempnode;
 }
 
+void MyChunkyNode::remove(int index) {
+    chunk[index] = "";
+    num_items -= 1;
+    for(int i = 0; i < chunksize - 1; i++) {
+        if(chunk[i] == "") {
+            chunk[i] = chunk[i + 1];
+            chunk[i + 1] = "";
+        }
+    }
+}
+
 void MyChunkyNode::merge() {
     if(prev_ref->count() <= chunksize / 2) {
         // transfer previous node's data to current node
@@ -111,21 +107,6 @@ void MyChunkyNode::merge() {
     }
 }
 
-void MyChunkyNode::shift_remove(int start) {
-    for(int i = start; i < chunksize - 1; i++) {
-        std::string tempitem = chunk[i + 1];
-        chunk[i + 1] = "";
-        chunk[i] = tempitem;
-    }
-}
-
-void MyChunkyNode::shift_insert(int start) {
-    for(int i = chunksize - 1; i > start; i--) {
-        std::string tempitem =  chunk[i - 1];
-        chunk[i - 1] = "";
-        chunk[i] = tempitem;
-    }
-}
 
 void MyChunkyNode::set_next(MyChunkyNode* newnext) {
     next_ref = newnext;

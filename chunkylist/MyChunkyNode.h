@@ -26,8 +26,6 @@ public:
   void remove(int index);
   void split_insert(int index, const std::string &item);
   void merge();
-  void shift_remove(int start);
-  void shift_insert(int start);
   void set_next(MyChunkyNode* newnext);
   void set_prev(MyChunkyNode* newprev);
 

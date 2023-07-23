@@ -110,6 +110,9 @@ std::string& MyChunkyList::lookup(int index) {
     if(currnode != nullptr || currnode->items()[nodeindex] != "") {
         return currnode->items()[nodeindex];
     }
+    else {
+        throw std::out_of_range("Invalid Index");
+    }
         
 }
 
