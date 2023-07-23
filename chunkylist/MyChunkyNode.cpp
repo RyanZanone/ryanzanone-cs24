@@ -99,6 +99,7 @@ void MyChunkyNode::split_insert(int index, const std::string &item) {
             chunk[i] = "";
         }
     }
+    delete tempnode;
 }
 
 void MyChunkyNode::merge() {
