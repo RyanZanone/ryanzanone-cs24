@@ -109,7 +109,7 @@ void MyChunkyNode::merge() {
     else if(next_ref != nullptr && next_ref->num_items <= chunksize / 2) {
         // copy over items from next node to current node
         int mergeindex = num_items;
-        for(int i = 0; i < num_items; i++) {
+        for(int i = 0; i < next_ref->num_items; i++) {
             insert(mergeindex, next_ref->chunk[i]);
         }
         // update ll pointers
