@@ -97,7 +97,6 @@ void MyChunkyNode::merge() {
         int mergeindex = prev_ref->num_items;
         for(int i = 0; i < num_items; i++) {
             prev_ref->insert(mergeindex + i, chunk[i]);
-            num_items -= 1;
         }
         // update ll pointers
         prev_ref->next_ref = next_ref;
@@ -109,18 +108,17 @@ void MyChunkyNode::merge() {
     }
     else if(next_ref != nullptr && next_ref->num_items <= chunksize / 2) {
         // copy over items from next node to current node
-        int mergeindex = next_ref->num_items;
+        int mergeindex = num_items;
         for(int i = 0; i < num_items; i++) {
-            next_ref->insert(mergeindex + 1, chunk[i]);
-            num_items -= 1;
+            insert(mergeindex, next_ref->chunk[i]);
         }
         // update ll pointers
-        next_ref->prev_ref = prev_ref;
-        if(prev_ref != nullptr) {
-            prev_ref->next_ref = next_ref;
+        MyChunkyNode* tempnode = next_ref;
+        delete next_ref;
+        next_ref = tempnode->next_ref;
+        if(tempnode->next_ref != nullptr) {
+            tempnode->next_ref->prev_ref = this;
         }
-        // delete current node
-        delete this;
     } 
 }
 
