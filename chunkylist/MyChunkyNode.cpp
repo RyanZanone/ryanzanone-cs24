@@ -49,7 +49,7 @@ void MyChunkyNode::insert(int index, const std::string &item) {
         }
         else {
             shift_insert(index);
-            chunk[index];
+            chunk[index] = item;
             num_items += 1;
         }
     }
