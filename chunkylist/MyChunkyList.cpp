@@ -72,7 +72,19 @@ void MyChunkyList::insert(int index, const std::string &item) {
                 nodeindex += 1;
             }
         }
-        currnode->insert(nodeindex, item);
+
+        if (currnode->count() == chunksize) { // if the node is full after finding the correct node
+            currnode->split();
+            if (index > listindex) {
+                index -= listindex + 1;
+                currnode->next()->insert(index, item);
+            } else {
+                currnode->insert(nodeindex, item);
+            }
+        } 
+        else {
+            currnode->insert(nodeindex, item);
+        }
         num_items += 1;
     }
 }
