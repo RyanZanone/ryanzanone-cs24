@@ -39,7 +39,6 @@ MyChunkyNode* MyChunkyNode::next() const {
 void MyChunkyNode::insert(int index, const std::string &item) {
     if(num_items == chunksize) { // node is full
         split_insert(index, item);
-        num_items += 1;
     }
     else if (chunk[index] == "") {
         chunk[index] = item;
@@ -91,6 +90,8 @@ void MyChunkyNode::split_insert(int index, const std::string &item) {
             newnode->insert(i - splitindex, tempnode->chunk[i]);
             chunk[i] = "";
         }
+        num_items = chunksize / 2;
+        newnode->num_items = chunksize / 2;
     }
     else { // odd items
         int splitindex = (tempnode->count() / 2) + 1;
@@ -98,8 +99,11 @@ void MyChunkyNode::split_insert(int index, const std::string &item) {
             newnode->insert(i - splitindex, chunk[i]);
             chunk[i] = "";
         }
+        num_items = (chunksize / 2) + 1;
+        newnode->num_items = chunksize / 2;
     }
     delete tempnode;
+
 }
 
 void MyChunkyNode::merge() {
