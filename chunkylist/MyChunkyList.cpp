@@ -81,6 +81,9 @@ void MyChunkyList::insert(int index, const std::string &item) {
         }
         num_items += 1;
     }
+    if(tail_ref->next() != nullptr) {
+        tail_ref = tail_ref->next();
+    }
 }
 
 std::string& MyChunkyList::lookup(int index) {
