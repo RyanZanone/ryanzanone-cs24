@@ -43,6 +43,15 @@ void MyChunkyNode::insert(int index, const std::string &item) {
             index -= num_items;
             next_ref->insert(index, item);
         }
+        else if (chunk[index] == "") {
+            chunk[index] = item;
+            num_items += 1;
+        }
+        else {
+            shift_insert(index);
+            chunk[index];
+            num_items += 1;
+        }
     }
     else if (chunk[index] == "") {
         chunk[index] = item;
@@ -85,15 +94,13 @@ void MyChunkyNode::split() {
     if(num_items % 2 == 0) { // even number of items, make both have the same amount
         for(int i = splitindex; i < chunksize; i++) {
             newnode->insert(i, chunk[i]);
-            chunk[i] = "";
-            num_items -= 1;
+            remove(i);
         }
     }
     else {
         for(int i = splitindex + 1; i < chunksize; i++) {
             newnode->insert(i, chunk[i]);
-            chunk[i] = "";
-            num_items -= 1;
+            remove(i);
         }
     }
 }
