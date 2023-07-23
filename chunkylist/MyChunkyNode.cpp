@@ -89,9 +89,6 @@ void MyChunkyNode::remove(int index) {
         }
         delete this;
     }
-    else if(num_items <= chunksize / 2) {
-        merge();
-    }
 }
 
 void MyChunkyNode::merge() {
