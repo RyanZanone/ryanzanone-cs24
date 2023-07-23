@@ -107,8 +107,9 @@ std::string& MyChunkyList::lookup(int index) {
             nodeindex += 1;
         }
     }
-
-    return currnode->items()[nodeindex];
+    if(currnode != nullptr || currnode->items()[nodeindex] != "") {
+        return currnode->items()[nodeindex];
+    }
         
 }
 
