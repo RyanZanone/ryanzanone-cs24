@@ -22,9 +22,13 @@ int main() {
   list->insert(12, "13");
   list->insert(13, "14");
   list->insert(14, "15");
-  list->insert(6, "16");
   
   std::cout << list->lookup(6) << std::endl;
+    list->insert(6, "16");
+      std::cout << list->lookup(6) << std::endl;
+      std::cout << list->lookup(7) << std::endl;
+        std::cout << list->lookup(5) << std::endl;
+        std::cout << list->lookup(8) << std::endl;
   std::cout << list->count();
 
   delete list;

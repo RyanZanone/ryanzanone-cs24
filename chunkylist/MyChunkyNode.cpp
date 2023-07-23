@@ -10,14 +10,6 @@ MyChunkyNode::MyChunkyNode(int chunksize) {
 
 MyChunkyNode::~MyChunkyNode() {
     delete[] chunk;
-
-    if (prev_ref != nullptr) {
-        prev_ref->next_ref = next_ref;
-    }
-
-    if (next_ref != nullptr) {
-        next_ref->prev_ref = prev_ref;
-    }
 }
 
 int MyChunkyNode::count() const {
@@ -37,23 +29,13 @@ MyChunkyNode* MyChunkyNode::next() const {
 }
 
 void MyChunkyNode::insert(int index, const std::string &item) {
-    if(num_items == chunksize) { // node is full
-        split();
-        if(index >= num_items) {
-            index -= num_items;
-            next_ref->insert(index, item);
-        }
-        else {
-            shift_insert(index);
-            chunk[index] = item;
-            num_items += 1;
-        }
+    for(int i = chunksize - 1; i > index; i--) {
+        std::string tempitem =  chunk[i - 1];
+        chunk[i - 1] = "";
+        chunk[i] = tempitem;
     }
-    else {
-        shift_insert(index);
-        chunk[index] = item;
-        num_items += 1;
-    }
+    chunk[index] = item;
+    num_items += 1;
 }
 
 void MyChunkyNode::remove(int index) {
@@ -71,9 +53,10 @@ void MyChunkyNode::remove(int index) {
     } 
 }
 
-void MyChunkyNode::split() {
+void MyChunkyNode::split_insert(int index, const std::string &item) {
     // Create new node
     MyChunkyNode* newnode = new MyChunkyNode(chunksize);
+    MyChunkyNode* tempnode = new MyChunkyNode(chunksize + 1);
     // Update linked list pointers
     newnode->prev_ref = this;
     newnode->next_ref = next_ref;
@@ -81,7 +64,28 @@ void MyChunkyNode::split() {
         next_ref->prev_ref = newnode;
     }
     next_ref = newnode;
-    // Copy over data
+    // Copy data over to tempnode
+    for(int i = 0; i < chunksize; i++) {
+        tempnode->insert(i, chunk[i]);
+    }
+    // Insert item into proper position in tempnode
+    tempnode->insert(index, item);
+    // Copy data over to other two nodes
+    int splitindex = (chunksize + 2) / 2;
+    for(int i = 0; i < chunksize; i++) { // remove all items from original node
+        chunk[i] = "";
+        num_items -= 1;
+    }
+    for(int i = 0; i < splitindex; i++) { // copy over to original node
+        insert(i, tempnode->items()[i]);
+    }
+    for(int i = splitindex; i < chunksize + 1; i++) { // copy over to new node
+        newnode->insert(i - splitindex, tempnode->items()[i]);
+    }
+
+
+
+
     int splitindex;
     if(num_items % 2 == 0) {
         splitindex = num_items / 2;
