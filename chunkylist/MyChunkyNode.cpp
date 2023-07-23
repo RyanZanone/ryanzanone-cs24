@@ -114,12 +114,11 @@ void MyChunkyNode::merge() {
         }
         // update ll pointers
         MyChunkyNode* tempnode = next_ref;
-        delete next_ref;
         next_ref = tempnode->next_ref;
         if(tempnode->next_ref != nullptr) {
             tempnode->next_ref->prev_ref = this;
         }
-        delete tempnode;
+        delete next_ref;
     } 
 }
 
