@@ -107,12 +107,11 @@ std::string& MyChunkyList::lookup(int index) {
             nodeindex += 1;
         }
     }
-    if(currnode != nullptr || currnode->items()[nodeindex] != "") {
-        return currnode->items()[nodeindex];
-    }
-    else {
+    if(currnode == nullptr) {
         throw std::out_of_range("Invalid Index");
     }
+
+    return currnode->items()[nodeindex];
         
 }
 
@@ -126,7 +125,9 @@ void MyChunkyList::remove(int index) {
     int nodeindex = 0;
     
     while(listindex != index && currnode != nullptr) {
-        listindex += 1;
+        if(currnode->items()[nodeindex] != "") {
+            listindex += 1;
+        }
         if(nodeindex == chunksize - 1) {
             currnode = currnode->next();
             nodeindex = 0;
@@ -136,7 +137,7 @@ void MyChunkyList::remove(int index) {
         }
     }
 
-    if(currnode == nullptr || currnode->items()[nodeindex] == "") {
+    if(currnode == nullptr) {
         throw std::out_of_range("Invalid Index");
     }
     else {
