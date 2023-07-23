@@ -10,6 +10,7 @@ MyChunkyNode::MyChunkyNode(int chunksize) {
 
 MyChunkyNode::~MyChunkyNode() {
     delete[] chunk;
+    
 }
 
 int MyChunkyNode::count() const {
@@ -78,6 +79,9 @@ void MyChunkyNode::remove(int index) {
             chunk[i] = chunk[i + 1];
             chunk[i + 1] = "";
         }
+    }
+    if(num_items == 0) {
+        delete this;
     }
 }
 

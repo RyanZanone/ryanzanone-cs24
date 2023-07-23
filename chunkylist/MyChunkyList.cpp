@@ -95,9 +95,12 @@ std::string& MyChunkyList::lookup(int index) {
     int listindex = 0;
     int nodeindex = 0;
     
-    while(listindex != index && currnode != nullptr) {
+    while(currnode != nullptr) {
         if (currnode->items()[nodeindex] != "") {
             listindex += 1;
+        }
+        if(listindex == index) {
+            break;
         }
         if(nodeindex == chunksize - 1 || currnode->items()[nodeindex] == "") {
             currnode = currnode->next();
@@ -143,6 +146,15 @@ void MyChunkyList::remove(int index) {
     else {
         currnode->remove(index);
         num_items -= 1;
+    }
+    if(currnode->count() == 0) {
+        if(currnode->prev() != nullptr) {
+            currnode->prev()->set_next(currnode->next());
+        }
+        if(currnode->next() != nullptr) {
+            currnode->next()->set_prev(currnode->prev());
+        }
+        delete currnode;
     }
 }
 
