@@ -94,13 +94,15 @@ void MyChunkyNode::split() {
     if(num_items % 2 == 0) { // even number of items, make both have the same amount
         for(int i = splitindex; i < chunksize; i++) {
             newnode->insert(i, chunk[i]);
-            remove(i);
+            chunk[i] = "";
+            num_items -= 1;
         }
     }
     else {
         for(int i = splitindex + 1; i < chunksize; i++) {
             newnode->insert(i, chunk[i]);
-            remove(i);
+            chunk[i] = "";
+            num_items -= 1;
         }
     }
 }
