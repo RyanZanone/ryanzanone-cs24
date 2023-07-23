@@ -10,7 +10,7 @@ MyChunkyNode::MyChunkyNode(int chunksize) {
 
 MyChunkyNode::~MyChunkyNode() {
     delete[] chunk;
-    
+
 }
 
 int MyChunkyNode::count() const {
@@ -80,7 +80,13 @@ void MyChunkyNode::remove(int index) {
             chunk[i + 1] = "";
         }
     }
-    if(num_items == 0) {
+    if(num_items == 0) { // empty node, change pointers and prepare for deletion
+        if(prev_ref != nullptr) {
+            prev_ref->next_ref = next_ref;
+        }
+        if(next_ref != nullptr) {
+            next_ref->prev_ref = prev_ref;
+        }
         delete this;
     }
 }
