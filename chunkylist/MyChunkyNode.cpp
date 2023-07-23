@@ -39,23 +39,15 @@ MyChunkyNode* MyChunkyNode::next() const {
 void MyChunkyNode::insert(int index, const std::string &item) {
     if(num_items == chunksize) { // node is full
         split();
-        if(index > num_items) {
+        if(index >= num_items) {
             index -= num_items;
             next_ref->insert(index, item);
-        }
-        else if (chunk[index] == "") {
-            chunk[index] = item;
-            num_items += 1;
         }
         else {
             shift_insert(index);
             chunk[index] = item;
             num_items += 1;
         }
-    }
-    else if (chunk[index] == "") {
-        chunk[index] = item;
-        num_items += 1;
     }
     else {
         shift_insert(index);
@@ -91,20 +83,12 @@ void MyChunkyNode::split() {
     next_ref = newnode;
     // Copy over data
     int splitindex = chunksize / 2;
-    if(num_items % 2 == 0) { // even number of items, make both have the same amount
-        for(int i = splitindex; i < chunksize; i++) {
-            newnode->insert(i - splitindex, chunk[i]);
-            chunk[i] = "";
-            num_items -= 1;
-        }
+    for(int i = splitindex; i < chunksize; i++) {
+        newnode->insert(i - splitindex, chunk[i]);
+        chunk[i] = "";
     }
-    else {
-        for(int i = splitindex + 1; i < chunksize; i++) {
-            newnode->insert(i - splitindex - 1, chunk[i]);
-            chunk[i] = "";
-            num_items -= 1;
-        }
-    }
+    // Update num_items in original node
+    num_items = splitindex;
 }
 
 void MyChunkyNode::merge() {
