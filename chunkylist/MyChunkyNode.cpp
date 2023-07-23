@@ -97,6 +97,7 @@ void MyChunkyNode::merge() {
         int mergeindex = prev_ref->num_items;
         for(int i = 0; i < num_items; i++) {
             prev_ref->insert(mergeindex + i, chunk[i]);
+            num_items -= 1;
         }
         // update ll pointers
         prev_ref->next_ref = next_ref;
@@ -111,6 +112,7 @@ void MyChunkyNode::merge() {
         int mergeindex = next_ref->num_items;
         for(int i = 0; i < num_items; i++) {
             next_ref->insert(mergeindex + 1, chunk[i]);
+            num_items -= 1;
         }
         // update ll pointers
         next_ref->prev_ref = prev_ref;
