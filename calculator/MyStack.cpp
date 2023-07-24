@@ -1,68 +1,52 @@
 #include "MyStack.h"
 
 MyStack::MyStack() {
-    head = nullptr;
-    tail = nullptr;
+    topnode = nullptr;
 }
 
 MyStack::~MyStack() {
-    Node* currnode = head;
-    while(currnode != nullptr) {
-        Node* next = head->next;
-        delete currnode;
-        currnode = next;
+    while(!is_empty()) {
+        pop();
     }
 }
 
 void MyStack::clear() {
-    Node* currnode = head;
-    while(currnode != nullptr) {
-        Node* next = head->next;
-        delete currnode;
-        currnode = next;
+    while(!is_empty()) {
+        Node* tempnode = topnode;
+        topnode = topnode->next;
+        delete tempnode;
     }
+    count = 0;
 }
 
 bool MyStack::is_empty() const {
-    if(head == nullptr) { // stack is empty
-        return true;
-    }
-    else {
-        return false;
-    }
+    return topnode == nullptr;
 }
 
 void MyStack::push(double item) {
-    if(head == nullptr) { // stack is empty
-        Node* newnode = new Node(item);
-        head = newnode;
-        tail = newnode;
-    }
-    else {
-        Node* newnode = new Node(item);
-        tail->next = newnode;
-        tail = newnode;
-    }
+    Node* newnode = new Node(item);
+    newnode->next = topnode;
+    topnode = newnode;
+    count += 1;
 }
 
 double MyStack::pop() {
-    if(head == nullptr) { // stack is empty
+    if(is_empty()) { // stack is empty
         throw std::underflow_error("Stack is Empty");
     } else {
-        Node* currnode = head;
-        while(currnode->next != tail) {
-            currnode = currnode->next;
-        }
-        double top_data = tail->data;
-        tail = currnode;
-        return top_data;
+        double topdata = topnode->data;
+        Node* tempnode = topnode;
+        topnode = topnode->next;
+        delete tempnode;
+        count -= 1;
+        return topdata;
     }
 }
 
 double MyStack::top() const {
-    if(head == nullptr) { // stack is empty
+    if(is_empty()) {
         throw std::underflow_error("Stack is Empty");
     } else {
-        return tail->data;
+        return topnode->data;
     }
 }

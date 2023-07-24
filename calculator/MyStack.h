@@ -7,8 +7,7 @@
 
 class MyStack: public Stack {
   int count;
-  Node* head;
-  Node* tail;
+  Node* topnode;
 
 public:
   // TODO: Constructor & Destructor
