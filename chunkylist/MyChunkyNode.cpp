@@ -118,7 +118,7 @@ void MyChunkyNode::merge() {
         if(tempnode->next_ref != nullptr) {
             tempnode->next_ref->prev_ref = this;
         }
-        delete next_ref;
+        delete tempnode;
     } 
 }
 
