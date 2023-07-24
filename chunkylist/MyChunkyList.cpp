@@ -125,15 +125,15 @@ void MyChunkyList::remove(int index) {
     int nodeindex = 0;
     
     while(listindex != index && currnode != nullptr) {
-        if(currnode->items()[nodeindex] != "") {
-            listindex += 1;
+        if(currnode->items()[nodeindex] != "" && nodeindex != chunksize - 1) {
+            nodeindex += 1;
         }
-        if(nodeindex == chunksize - 1) {
+        else {
             currnode = currnode->next();
             nodeindex = 0;
         }
-        else {
-            nodeindex += 1;
+        if(currnode->items()[nodeindex] != "") {
+            listindex += 1;
         }
     }
 

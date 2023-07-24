@@ -31,19 +31,10 @@ int main() {
   list->insert(19, "20");
 
   
-  list->remove(5);
-  list->remove(5);
-  list->remove(5);
-  list->remove(7);
-  list->remove(7);
-  list->remove(7);
+  list->remove(4);
   
-  cout << list->head() << endl;
-  cout << list->head()->next() << endl;
-  cout << list->head()->next()->next() << endl;
-  cout << list->tail() << endl;
-  cout << list->tail()->prev() << endl;
-  cout << list->tail()->prev()->prev() << endl;
+  cout << list->lookup(4);
+  cout << list->head()->count() << endl;
 
   delete list;
 }
