@@ -30,26 +30,7 @@ int main() {
   list->insert(18, "19");
   list->insert(19, "20");
 
-  
-  list->remove(5);
-  list->remove(10);
-  list->remove(15);
-  list->remove(8);
-  list->remove(12);
-
-
-  list->remove(7);
-  list->remove(7);
-  list->remove(8);
-
-  cout << list->lookup(5) << endl;
-  cout << list->lookup(8) << endl;
-  cout << list->lookup(11) << endl;
-  cout << list->count() << endl;
-  cout << list->head()->count() << endl;
-  cout << list->head()->next()->count() << endl;
-  cout << list->head()->next()->next()->count() << endl;
-  cout << list->head()->next()->next()->next()->count() << endl;
+  cout << list->lookup(19) << endl;
 
   delete list;
 }
