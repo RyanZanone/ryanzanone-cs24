@@ -6,12 +6,21 @@ MyStack::MyStack() {
 }
 
 MyStack::~MyStack() {
-    delete head;
-    delete tail;
+    Node* currnode = head;
+    while(currnode != nullptr) {
+        Node* next = head->next;
+        delete currnode;
+        currnode = next;
+    }
 }
 
 void MyStack::clear() {
-    
+    Node* currnode = head;
+    while(currnode != nullptr) {
+        Node* next = head->next;
+        delete currnode;
+        currnode = next;
+    }
 }
 
 bool MyStack::is_empty() const {
