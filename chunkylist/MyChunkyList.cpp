@@ -124,16 +124,16 @@ void MyChunkyList::remove(int index) {
     int listindex = 0;
     int nodeindex = 0;
     
-    while(listindex != index && currnode != nullptr) { // iterate through to find which node index is in
-        if(currnode->items()[nodeindex] != "") {
-            listindex += 1;
-        }
-        if(nodeindex == chunksize - 1) { // reached the end of the current node
-            currnode = currnode->next(); // move onto next node
-            nodeindex = 0; // reset node index
+    while(listindex != index && currnode != nullptr) {
+        if (currnode->items()[nodeindex] != "" && nodeindex != chunksize - 1) {
+            nodeindex += 1;
         }
         else {
-            nodeindex += 1;
+            currnode = currnode->next();
+            nodeindex = 0;
+        }
+        if(currnode->items()[nodeindex] != "") {
+            listindex += 1;
         }
     }
 
