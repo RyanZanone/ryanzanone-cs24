@@ -89,45 +89,41 @@ void MyChunkyNode::remove(int index) {
         }
         delete this;
     }
-    else if(num_items <= chunksize / 2) {
-        merge();
-    }
-    else {
-        return;
+    else if(num_items <= chunksize / 2) { // checks if need to merge
+        if((prev_ref != nullptr && prev_ref->num_items <= chunksize / 2) || (next_ref != nullptr && next_ref->num_items <= chunksize / 2)) {
+            merge();
+        }
     }
 }
 
 void MyChunkyNode::merge() {
     if(prev_ref != nullptr && prev_ref->num_items <= chunksize / 2) {
         // copy over items from current node to prev node
-        int mergeindex = prev_ref->num_items;
-        for(int i = 0; i < num_items; i++) {
-            prev_ref->insert(mergeindex + i, chunk[i]);
+        for(int i = 0; i < prev_ref->count(); i++) {
+            insert(i, prev_ref->items()[i]);
         }
         // update ll pointers
-        prev_ref->next_ref = next_ref;
-        if(next_ref != nullptr) {
-            next_ref->prev_ref = prev_ref;
+        MyChunkyNode* tempnode = prev_ref;
+        if(prev_ref->prev_ref != nullptr) {
+            prev_ref->prev_ref->next_ref = this;
         }
+        prev_ref = prev_ref->prev_ref;
         // delete current node;
-        delete this;
+        delete tempnode;
     }
     else if(next_ref != nullptr && next_ref->num_items <= chunksize / 2) {
         // copy over items from next node to current node
-        int mergeindex = num_items;
         for(int i = 0; i < next_ref->num_items; i++) {
-            insert(mergeindex, next_ref->chunk[i]);
+            insert(num_items + i, next_ref->chunk[i]);
         }
         // update ll pointers
         MyChunkyNode* tempnode = next_ref;
-        next_ref = tempnode->next_ref;
-        if(tempnode->next_ref != nullptr) {
-            tempnode->next_ref->prev_ref = this;
+        if(next_ref->next_ref != nullptr) {
+            next_ref->next_ref->prev_ref = this;
         }
+        next_ref = next_ref->next_ref;
+        // delete current node
         delete tempnode;
-    }
-    else {
-        return;
     }
 }
 
