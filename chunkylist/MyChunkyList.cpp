@@ -163,7 +163,7 @@ void MyChunkyList::remove(int index) {
             tail_ref = currnode;
         }
         if(currnode != nullptr && currnode->prev() == nullptr) {
-            head_ref == currnode;
+            head_ref = currnode;
         }
     }
 }
