@@ -93,25 +93,22 @@ std::string& MyChunkyList::lookup(int index) {
 
     MyChunkyNode *currnode = head_ref;
     int listindex = 0;
-    int nodeindex = 0;
     
-    while(listindex != index && currnode != nullptr) {
-        if (currnode->items()[nodeindex] != "" && nodeindex != chunksize - 1) {
-            nodeindex += 1;
+    while (currnode != nullptr) {
+        int nodeindex = 0;
+        while (nodeindex < chunksize) {
+            if (currnode->items()[nodeindex] != "") {
+                if (listindex == index) {
+                    return currnode->items()[nodeindex];
+                }
+                listindex++;
+            }
+            nodeindex++;
         }
-        else {
-            currnode = currnode->next();
-            nodeindex = 0;
-        }
-        if(currnode->items()[nodeindex] != "") {
-            listindex += 1;
-        }
-    }
-    if(currnode == nullptr) {
-        throw std::out_of_range("Invalid Index");
+        currnode = currnode->next();
     }
 
-    return currnode->items()[nodeindex];
+    throw std::out_of_range("Invalid Index");
         
 }
 
