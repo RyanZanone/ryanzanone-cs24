@@ -2,11 +2,18 @@
 #define MYSTACK_H
 
 #include "Stack.h"
+#include "Node.cpp"
+#include <stdexcept>
 
 class MyStack: public Stack {
-  // TODO: Member Variables
+  int count;
+  Node* head;
+  Node* tail;
+
 public:
   // TODO: Constructor & Destructor
+  MyStack();
+  ~MyStack();
 
   // Required Stack functions.
   // See Stack.h for descriptions.
