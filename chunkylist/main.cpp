@@ -4,6 +4,8 @@
 // This is an example main file - it won't be graded.
 // Use it to interact with your list and make sure it works!
 
+using namespace std;
+
 int main() {
   ChunkyList* list = ChunkyList::create(5);
 
@@ -23,13 +25,11 @@ int main() {
   list->insert(13, "14");
   list->insert(14, "15");
   
-  std::cout << list->lookup(6) << std::endl;
-    list->insert(6, "16");
-      std::cout << list->lookup(6) << std::endl;
-      std::cout << list->lookup(7) << std::endl;
-        std::cout << list->lookup(5) << std::endl;
-        std::cout << list->lookup(8) << std::endl;
-  std::cout << list->count();
+  cout << list->lookup(4) << endl;
+  list->remove(3);
+  cout << list->lookup(3) << endl;
+  cout << list->lookup(5) << endl;
+  cout << list->lookup(4) << endl;
 
   delete list;
 }

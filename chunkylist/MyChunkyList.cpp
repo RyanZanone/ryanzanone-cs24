@@ -99,12 +99,10 @@ std::string& MyChunkyList::lookup(int index) {
         if (currnode->items()[nodeindex] != "") {
             listindex += 1;
         }
+        nodeindex += 1;
         if(nodeindex == chunksize - 1) {
             currnode = currnode->next();
             nodeindex = 0;
-        }
-        else {
-            nodeindex += 1;
         }
     }
     if(currnode == nullptr || currnode->items()[nodeindex] == "") {
