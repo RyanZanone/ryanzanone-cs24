@@ -141,7 +141,7 @@ void MyChunkyList::remove(int index) {
         throw std::out_of_range("Invalid Index");
     }
     else if(head_ref == tail_ref && currnode == head_ref && currnode->count() == 1) {
-        currnode->remove(nodeindex);
+        delete currnode;
         num_items -= 1;
         head_ref = nullptr;
         tail_ref = nullptr;
