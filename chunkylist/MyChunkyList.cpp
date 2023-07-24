@@ -156,9 +156,21 @@ void MyChunkyList::remove(int index) {
         currnode->remove(nodeindex);
         num_items -= 1;
     }
+    else if(currnode->count() == 1) {
+        currnode->remove(nodeindex);
+        num_items -= 1;
+    }
     else {
         currnode->remove(nodeindex);
         num_items -= 1;
+        if(currnode->count() <= chunksize / 2) {
+            if(currnode->prev() != nullptr && currnode->prev()->count() <= chunksize / 2) {
+                currnode->merge_prev();
+            }
+            else if (currnode->next() != nullptr && currnode->next()->count() <= chunksize / 2) {
+                currnode->merge_next();
+            }
+        }
     }
 }
 
