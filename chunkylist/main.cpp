@@ -24,12 +24,26 @@ int main() {
   list->insert(12, "13");
   list->insert(13, "14");
   list->insert(14, "15");
+  list->insert(15, "16");
+  list->insert(16, "17");
+  list->insert(17, "18");
+  list->insert(18, "19");
+  list->insert(19, "20");
+
   
-  cout << list->lookup(4) << endl;
-  list->remove(3);
-  cout << list->lookup(3) << endl;
-  cout << list->lookup(5) << endl;
-  cout << list->lookup(4) << endl;
+  list->remove(5);
+  list->remove(5);
+  list->remove(5);
+  list->remove(7);
+  list->remove(7);
+  list->remove(7);
+  
+  cout << list->head() << endl;
+  cout << list->head()->next() << endl;
+  cout << list->head()->next()->next() << endl;
+  cout << list->tail() << endl;
+  cout << list->tail()->prev() << endl;
+  cout << list->tail()->prev()->prev() << endl;
 
   delete list;
 }
