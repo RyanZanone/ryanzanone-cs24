@@ -99,7 +99,7 @@ std::string& MyChunkyList::lookup(int index) {
         if (currnode->items()[nodeindex] != "") {
             listindex += 1;
         }
-        if(nodeindex == chunksize - 1 || currnode->items()[nodeindex] == "") {
+        if(nodeindex == chunksize - 1) {
             currnode = currnode->next();
             nodeindex = 0;
         }
@@ -107,7 +107,7 @@ std::string& MyChunkyList::lookup(int index) {
             nodeindex += 1;
         }
     }
-    if(currnode == nullptr) {
+    if(currnode == nullptr || currnode->items()[nodeindex] == "") {
         throw std::out_of_range("Invalid Index");
     }
 
