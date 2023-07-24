@@ -92,6 +92,9 @@ void MyChunkyNode::remove(int index) {
     else if(num_items <= chunksize / 2) {
         merge();
     }
+    else {
+        return;
+    }
 }
 
 void MyChunkyNode::merge() {
@@ -122,7 +125,10 @@ void MyChunkyNode::merge() {
             tempnode->next_ref->prev_ref = this;
         }
         delete tempnode;
-    } 
+    }
+    else {
+        return;
+    }
 }
 
 

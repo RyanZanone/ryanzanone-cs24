@@ -144,18 +144,20 @@ void MyChunkyList::remove(int index) {
         throw std::out_of_range("Invalid Index");
     }
     else if(head_ref == tail_ref && currnode == head_ref && currnode->count() == 1) {
-        currnode->remove(nodeindex);
+        delete currnode;
         num_items -= 1;
         head_ref = nullptr;
         tail_ref = nullptr;
     }
     else if(currnode == head_ref && currnode->count() == 1) {
         head_ref = currnode->next();
+        head_ref->set_prev(nullptr);
         currnode->remove(nodeindex);
         num_items -= 1;
     }
     else if(currnode == tail_ref && currnode->count() == 1) {
         tail_ref = currnode->prev();
+        tail_ref->set_next(nullptr);
         currnode->remove(nodeindex);
         num_items -= 1;
     }
