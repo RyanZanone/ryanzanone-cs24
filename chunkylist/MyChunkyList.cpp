@@ -159,8 +159,11 @@ void MyChunkyList::remove(int index) {
     else {
         currnode->remove(nodeindex);
         num_items -= 1;
-        if(currnode->next() == nullptr) {
+        if(currnode != nullptr && currnode->next() == nullptr) {
             tail_ref = currnode;
+        }
+        if(currnode != nullptr && currnode->prev() == nullptr) {
+            head_ref == currnode;
         }
     }
 }
