@@ -50,3 +50,7 @@ double MyStack::top() const {
         return topnode->data;
     }
 }
+
+int MyStack::size() const {
+    return count;
+}

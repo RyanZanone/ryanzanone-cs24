@@ -23,6 +23,7 @@ public:
   double top() const;
 
   // TODO: Add helper functions if necessary.
+  int size() const;
 };
 
 #endif
