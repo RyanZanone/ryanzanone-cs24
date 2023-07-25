@@ -57,26 +57,33 @@ int main() {
         double num2 = Stack.pop(); // at least one number to operate on
         if(token != "~") { // not a unary operation, need 2 numbers
           if(Stack.is_empty()) { 
-            std::cout << "Not enough operands." << std::endl;   
+            std::cout << "Not enough operands." << std::endl;
+            break;   
           }
           double num1 = Stack.pop(); // normal operation
           double result = operation(token, num1, num2);
           if(result == -1) {
             std::cout << "Division by zero." << std::endl;
-          } else {
+            break;
+          } 
+          else {
             Stack.push(result);
           }
-        } else { // unary operator
+        } 
+        else { // unary operator
           double result = operation(token, num2, 0);
           Stack.push(result);
         }
         
-      } else { // not an operator
+      } 
+      else { // not an operator
         double num;
         try {
           num = std::stod(token);
-        } catch (const std::exception&) {
+        } 
+        catch (const std::exception&) {
           std::cout << "Unknown token." << std::endl;
+          continue;
         }
         Stack.push(num);
       }
@@ -84,12 +91,17 @@ int main() {
 
     if(Stack.is_empty()) {
       std::cout << "No expression." << std::endl;
-    } else if(Stack.size() == 1) {
+      continue;
+    } 
+    else if(Stack.size() == 1) {
       double result = Stack.pop();
       std::cout << "= " << result << std::endl;
-    } else {
+      continue;
+    } 
+    else {
       std::cout << "Too many operands" << std::endl;
       Stack.clear();
+      continue;
     }
   }
 

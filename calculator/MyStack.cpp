@@ -2,6 +2,7 @@
 
 MyStack::MyStack() {
     topnode = nullptr;
+    count = 0;
 }
 
 MyStack::~MyStack() {
