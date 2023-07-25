@@ -26,7 +26,7 @@ double operation(const std::string& op, double num1, double num2) {
     return num1 / num2;
   }
   if(op == "%") {
-    if(num2= 0) {
+    if(num2 == 0) {
       return -1;
     }
     return fmod(num1, num2);
