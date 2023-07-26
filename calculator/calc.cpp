@@ -86,7 +86,7 @@ int main() {
         try {
           num = std::stod(token, &pos);
 
-          if(pos < token.length() || !std::isdigit(token[0])) {
+          if(pos < token.length() || (!std::isdigit(token[0]) && token[0] != '-' && token[0] != '+')) {
             std::cout << "Unknown token." << std::endl;
             error = true;
             break;
