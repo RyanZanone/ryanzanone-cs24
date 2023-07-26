@@ -102,7 +102,7 @@ int main() {
       std::cout << "No expression." << std::endl;
     } 
     else if(Stack.size() > 1 && error == false) {
-      std::cout << "Too many operands" << std::endl;
+      std::cout << "Too many operands." << std::endl;
       Stack.clear();
     }
   }
