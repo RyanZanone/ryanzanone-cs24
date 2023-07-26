@@ -82,8 +82,15 @@ int main() {
       } 
       else { // not an operator
         double num;
+        size_t pos = 0;
         try {
-          num = std::stod(token);
+          num = std::stod(token, &pos);
+
+          if(pos < token.length() || !std::isdigit(token[0])) {
+            std::cout << "Unknown token." << std::endl;
+            error = true;
+            break;
+          }
         } 
         catch (const std::exception&) {
           std::cout << "Unknown token." << std::endl;
