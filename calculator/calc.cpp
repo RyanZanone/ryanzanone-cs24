@@ -65,7 +65,7 @@ int main() {
           }
           double num1 = Stack.pop(); // normal operation
           double result = operation(token, num1, num2);
-          if(token == "/" && std::isnan(result)) {
+          if((token == "/" || token == "%") && std::isnan(result)) {
             std::cout << "Division by zero." << std::endl;
             error = true;
             break;
