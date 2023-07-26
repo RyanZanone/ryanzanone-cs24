@@ -35,6 +35,9 @@ double operation(const std::string& op, double num1, double num2) {
     return pow(num1, num2);
   }
   if(op == "~") {
+    if(num1 == NAN) {
+      return -NAN;
+    }
     return (-1) * num1;
   }
   return 0;
@@ -108,7 +111,7 @@ int main() {
     else if(Stack.is_empty() && error == false) {
       std::cout << "No expression." << std::endl;
     } 
-    else if(Stack.size() > 1 && error == false) {
+    else if(error == false) {
       std::cout << "Too many operands." << std::endl;
       Stack.clear();
     }
