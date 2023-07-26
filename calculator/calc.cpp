@@ -21,13 +21,13 @@ double operation(const std::string& op, double num1, double num2) {
   }
   if(op == "/") {
     if(num2 == 0) {
-      return -1;
+      return NAN;
     }
     return num1 / num2;
   }
   if(op == "%") {
     if(num2 == 0) {
-      return -1;
+      return NAN;
     }
     return fmod(num1, num2);
   }
@@ -44,6 +44,7 @@ int main() {
   
   std::string input;
   MyStack Stack;
+  bool error = false;
 
   while(std::getline(std::cin, input)) {
     std::stringstream ss(input);
@@ -52,18 +53,21 @@ int main() {
       if(is_operator(token)) { // token is an operator
         if(Stack.is_empty()) { // no numbers to operate on
           std::cout << "Not enough operands." << std::endl;
+          error = true;
           break;
         } 
         double num2 = Stack.pop(); // at least one number to operate on
         if(token != "~") { // not a unary operation, need 2 numbers
           if(Stack.is_empty()) { 
             std::cout << "Not enough operands." << std::endl;
-            break;   
+            error = true;
+            break;
           }
           double num1 = Stack.pop(); // normal operation
           double result = operation(token, num1, num2);
-          if(result == -1) {
+          if(std::isnan(result)) {
             std::cout << "Division by zero." << std::endl;
+            error = true;
             break;
           } 
           else {
@@ -83,25 +87,23 @@ int main() {
         } 
         catch (const std::exception&) {
           std::cout << "Unknown token." << std::endl;
-          continue;
+          error = true;
+          break;
         }
         Stack.push(num);
       }
     }
-
-    if(Stack.is_empty()) {
-      std::cout << "No expression." << std::endl;
-      continue;
-    } 
-    else if(Stack.size() == 1) {
+    
+    if(Stack.size() == 1 && error == false) {
       double result = Stack.pop();
       std::cout << "= " << result << std::endl;
-      continue;
     } 
-    else {
+    else if(Stack.is_empty() && error == false) {
+      std::cout << "No expression." << std::endl;
+    } 
+    else if(Stack.size() > 1 && error == false) {
       std::cout << "Too many operands" << std::endl;
       Stack.clear();
-      continue;
     }
   }
 
