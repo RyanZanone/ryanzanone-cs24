@@ -35,7 +35,7 @@ double operation(const std::string& op, double num1, double num2) {
     return pow(num1, num2);
   }
   if(op == "~") {
-    return -num1;
+    return (-1) * num1;
   }
   return 0;
 }
@@ -65,7 +65,7 @@ int main() {
           }
           double num1 = Stack.pop(); // normal operation
           double result = operation(token, num1, num2);
-          if(std::isnan(result)) {
+          if(token == "/" && std::isnan(result)) {
             std::cout << "Division by zero." << std::endl;
             error = true;
             break;
@@ -86,7 +86,7 @@ int main() {
         try {
           num = std::stod(token, &pos);
 
-          if(pos < token.length() || (!std::isdigit(token[0]) && token[0] != '-' && token[0] != '+')) {
+          if(pos < token.length() || (!std::isdigit(token[0]) && token[0] != '-' && token[0] != '+' && token != "inf" && token != "nan")) {
             std::cout << "Unknown token." << std::endl;
             error = true;
             break;
