@@ -44,11 +44,11 @@ int main() {
   
   std::string input;
   MyStack Stack;
-  bool error = false;
 
   while(std::getline(std::cin, input)) {
     std::stringstream ss(input);
     std::string token;
+    bool error = false;
     while(ss >> token) {
       if(is_operator(token)) { // token is an operator
         if(Stack.is_empty()) { // no numbers to operate on
