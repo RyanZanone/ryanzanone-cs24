@@ -103,20 +103,20 @@ int main() {
         Stack.push(num);
       }
     }
-    
-    if(Stack.size() == 1 && error == false) {
+    if(error == false) {
+      if(Stack.size() == 1) {
       double result = Stack.pop();
       std::cout << "= " << result << std::endl;
-    } 
-    else if(Stack.is_empty() && error == false) {
-      std::cout << "No expression." << std::endl;
-    } 
-    else if(error == false) {
-      std::cout << "Too many operands." << std::endl;
-      Stack.clear();
+      } 
+      else if(Stack.is_empty()) {
+        std::cout << "No expression." << std::endl;
+      } 
+      else {
+        std::cout << "Too many operands." << std::endl;
+        Stack.clear();
+      }
     }
   }
-
   return 0;
 }
 
