@@ -2,6 +2,7 @@
 #define MYGROVE_H
 
 #include "StringGrove.h"
+#include "Node.cpp"
 
 class MyGrove: public StringGrove<MyGrove> {
   // TODO: Member Variables
