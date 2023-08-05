@@ -20,7 +20,7 @@ public:
 
   // Concatenate s onto the end of this string and return the new string.
   // This should take O(1) time.
-  virtual StringGrove* concat(T* s) const = 0;
+  virtual const StringGrove* concat(T* s) const = 0;
 
   // Return the character at position i.
   // This can take O(h) time, where h is the number of concatenations.
@@ -30,7 +30,7 @@ public:
   // Return the substring starting at position i and running up to
   // but not including position j.
   // If i or j is out of bounds or i > j, throw std::out_of_range.
-  virtual StringGrove* substr(int i, int j) const = 0;
+  virtual const StringGrove* substr(int i, int j) const = 0;
 };
 
 #endif
