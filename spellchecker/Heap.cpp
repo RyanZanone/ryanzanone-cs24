@@ -52,49 +52,50 @@ Heap::Entry Heap::pop() {
         throw std::underflow_error("Heap is empty");
     }
 
-    Entry entry = mData[0];
+    Entry minEntry = mData[0];
     mData[0] = mData[mCount - 1];
-    size_t index = 0;
+    mCount -= 1;
 
+    size_t currIndex = 0;
     // perc down
-    while(index < mCount - 1) {
+    while(true) {
         size_t leftChild = index * 2 + 1;
         size_t rightChild = index * 2 + 2;
-        size_t minIndex = index;
+        size_t smallest = currIndex;
 
-        if(leftChild < mCount && mData[leftChild].score < mData[minIndex].score) {
-            minIndex = leftChild;
+        if(leftChild < mCount && mData[leftChild].score < mData[smallest].score) {
+            smallest = leftChild;
         }
-        if(rightChild < mCount && mData[rightChild].score < mData[minIndex].score) {
-            minIndex = rightChild;
+        if(rightChild < mCount && mData[rightChild].score < mData[smallest].score) {
+            smallest = rightChild;
         }
 
-        if(minIndex != index) {
-            std::swap(mData[index], mData[minIndex]);
-            index = minIndex;
+        if(smallest != currIndex) {
+            std::swap(mData[currIndex], mData[smallest]);
+            currIndex = smallest;
         }
         else {
             break;
         }
     }
 
-    return entry;
+    return minEntry;
 }
 
 Heap::Entry Heap::pushpop(const std::string& value, float score) {
-    if(mCount == 0 || score < mData[0].score) {
-        return {value, score};
+    if(mCount == 0) {
+        throw std::underflow_error("Heap is empty");
     }
-    Entry entry = pop();
-    push(value, score);
-    return entry;
+    
 }
 
 void Heap::push(const std::string& value, float score) {
     if(mCount >= mCapacity) {
         throw std::overflow_error("Heap is full");
     }
-    size_t index = mCount + 1;
+    size_t index = mCount;
+    mData[index].value = value;
+    mData[index].score = score;
 
     // perc up
     while(index > 0) {
@@ -107,8 +108,6 @@ void Heap::push(const std::string& value, float score) {
             break;
         }
     }
-
-    mData[index] = {value, score};
 }
 
 const Heap::Entry& Heap::top() const {
