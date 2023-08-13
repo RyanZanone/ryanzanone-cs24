@@ -26,7 +26,7 @@ Heap WordList::correct(const std::vector<Point>& points, size_t maxcount, float 
         if (word.length() == points.size()) {
             float wordScore = 0.0;
             for (size_t i = 0; i < word.length(); ++i) {
-                Point keyLocation = Point::charToQwertyLocation(word[i]);
+                Point keyLocation = QWERTY[word[i] - 'a']; // Use the QWERTY layout for the character
                 float distance = points[i].distanceTo(keyLocation);
                 float letterScore = 1.0 / (10.0 * distance * distance + 1.0);
                 wordScore += letterScore;
