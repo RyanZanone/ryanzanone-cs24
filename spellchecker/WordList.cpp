@@ -3,6 +3,22 @@
 #include <fstream>
 #include <cmath>
 
+WordList::WordList(std::istream& stream) {
+    std::string line;
+    while (std::getline(stream, line)) {
+        bool isLowerCase = true;
+        for (char c : line) {
+            if (!std::islower(c)) {
+                isLowerCase = false;
+                break;
+            }
+        }
+        if (isLowerCase) {
+            mWords.push_back(line);
+        }
+    }
+}
+
 Heap WordList::correct(const std::vector<Point>& points, size_t maxcount, float cutoff) const {
     Heap suggestions(maxcount);
 
