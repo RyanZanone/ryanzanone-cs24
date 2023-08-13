@@ -39,7 +39,7 @@ size_t Heap::count() const {
     return mCount;
 }
 
-Entry& Heap::lookup(size_t index) const {
+const Heap::Entry& Heap::lookup(size_t index) const {
     if(index >= mCount) {
         throw std::out_of_range("Invalid Index");
     }
@@ -110,7 +110,7 @@ void Heap::push(const std::string& value, float score) {
     mData[index] = {value, score};
 }
 
-Entry& Heap::top() const {
+const Heap::Entry& Heap::top() const {
     if(mCount == 0) {
         throw std::underflow_error("Heap is empty");
     }
