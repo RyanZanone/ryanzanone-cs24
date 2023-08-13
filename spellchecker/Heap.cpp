@@ -90,7 +90,6 @@ Heap::Entry Heap::pushpop(const std::string& value, float score) {
     Entry minEntry = mData[0];
     mData[0].value = value;
     mData[0].score = score;
-    mCount -= 1;
 
     size_t currIndex = 0;
     // perc down
@@ -125,6 +124,7 @@ void Heap::push(const std::string& value, float score) {
     size_t index = mCount;
     mData[index].value = value;
     mData[index].score = score;
+    mCount += 1;
 
     // perc up
     while(index > 0) {
@@ -143,5 +143,7 @@ const Heap::Entry& Heap::top() const {
     if(mCount == 0) {
         throw std::underflow_error("Heap is empty");
     }
-    return mData[0];
+    else{
+        return mData[0];
+    }
 }
