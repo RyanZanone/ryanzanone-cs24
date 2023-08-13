@@ -7,7 +7,7 @@ Heap::Heap(size_t capacity) {
     mCount = 0;
 }
 
-Heap::Heap(const Heap& other) : {
+Heap::Heap(const Heap& other) {
     mData = other.mData;
     mCapacity = other.mCapacity;
     mCount = other.mCount;
@@ -17,7 +17,7 @@ Heap::Heap(const Heap& other) : {
 Heap::Heap(Heap&& other) {
     mData = other.mData;
     mCapacity = other.mCapacity;
-    mCount = other.mCount
+    mCount = other.mCount;
 
     other.mData = nullptr;
     other.mCapacity = 0;
