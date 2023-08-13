@@ -81,7 +81,7 @@ Heap::Entry Heap::pop() {
 }
 
 Heap::Entry Heap::pushpop(const std::string& value, float score) {
-    if(mcount == 0 || score < mData[0].score) {
+    if(mCount == 0 || score < mData[0].score) {
         return {value, score};
     }
     Entry entry = pop();
