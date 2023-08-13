@@ -1,16 +1,24 @@
 #include "Heap.h"
 #include <stdexcept> 
 
-Heap::Heap(size_t capacity) : mData(new Entry[capacity]), mCapacity(capacity), mCount(0) {
+Heap::Heap(size_t capacity) {
+    mData = new Entry[capacity];
+    mCapacity = capacity;
+    mCount = 0;
 }
 
-Heap::Heap(const Heap& other) : mData(new Entry[other.mCapacity]), mCapacity(other.mCapacity), mCount(other.mCount) {
-    for(size_t i = 0; i < mCount; i++) {
-        mData[i] = other.mData[i];
-    }
+Heap::Heap(const Heap& other) : {
+    mData = other.mData;
+    mCapacity = other.mCapacity;
+    mCount = other.mCount;
 }
 
-Heap::Heap(Heap&& other) : mData(other.mData), mCapacity(other.mCapacity), mCount(other.mCount) {
+
+Heap::Heap(Heap&& other) {
+    mData = other.mData;
+    mCapacity = other.mCapacity;
+    mCount = other.mCount
+
     other.mData = nullptr;
     other.mCapacity = 0;
     other.mCount = 0;
