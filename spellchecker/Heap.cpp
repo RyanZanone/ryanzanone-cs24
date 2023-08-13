@@ -45,7 +45,7 @@ Heap::Entry Heap::pop() {
     size_t index = 0;
 
     // perc down
-    while(index < mCount) {
+    while(index < mCount - 1) {
         size_t leftChild = index * 2 + 1;
         size_t rightChild = index * 2 + 2;
         size_t minIndex = index;
