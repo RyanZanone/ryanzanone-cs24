@@ -7,7 +7,13 @@
 int main() {
     Heap heap(8);
 
-    std::cout << "This program doesn't do anything interesting yet...\n";
+    heap.push("bears", 3);
+    heap.push("pillars", 5);
+    heap.push("kings", 3);
+    heap.push("apostles", 12);
+    heap.push("animals", 12);
+
+    std::cout << heap.pop().value;
 
     return 0;
 }

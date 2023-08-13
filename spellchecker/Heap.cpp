@@ -143,7 +143,6 @@ const Heap::Entry& Heap::top() const {
     if(mCount == 0) {
         throw std::underflow_error("Heap is empty");
     }
-    else{
-        return mData[0];
-    }
+    
+    return mData[0];
 }
