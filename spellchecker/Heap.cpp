@@ -8,7 +8,7 @@ Heap::Heap(size_t capacity) {
 }
 
 Heap::Heap(const Heap& other) {
-    mData = new Entry[other.capacity];
+    mData = new Entry[other.mCapacity];
     mCapacity = other.mCapacity;
     mCount = other.mCount;
 
