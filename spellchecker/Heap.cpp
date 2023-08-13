@@ -87,17 +87,10 @@ Heap::Entry Heap::pushpop(const std::string& value, float score) {
         throw std::underflow_error("Heap is empty");
     }
 
-    Entry minEntry;
-
-    if(score < mData[0].score) {
-        minEntry.score = score;
-        minEntry.value = value;
-        return minEntry;
-    }
-
-    minEntry = mData[0];
-    mData[0].score = score;
+    Entry minEntry = mData[0];
     mData[0].value = value;
+    mData[0].score = score;
+
     size_t currIndex = 0;
     // perc down
     while(true) {
