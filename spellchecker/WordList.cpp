@@ -1,3 +1,8 @@
+#include "WordList.h"
+#include "Point.h"
+#include <fstream>
+#include <cmath>
+
 Heap WordList::correct(const std::vector<Point>& points, size_t maxcount, float cutoff) const {
     Heap suggestions(maxcount);
 
