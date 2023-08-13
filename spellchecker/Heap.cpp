@@ -88,32 +88,29 @@ Heap::Entry Heap::pushpop(const std::string& value, float score) {
     }
 
     Entry minEntry = mData[0];
-    
-    if(score < minEntry.score) {
-        mData[0].value = value;
-        mData[0].score = score;
+    mData[0].value = value;
+    mData[0].score = score;
 
-        size_t currIndex = 0;
-        // perc down
-        while(true) {
-            size_t leftChild = currIndex * 2 + 1;
-            size_t rightChild = currIndex * 2 + 2;
-            size_t smallest = currIndex;
+    size_t currIndex = 0;
+    // perc down
+    while(true) {
+        size_t leftChild = currIndex * 2 + 1;
+        size_t rightChild = currIndex * 2 + 2;
+        size_t smallest = currIndex;
 
-            if(leftChild < mCount && mData[leftChild].score < mData[smallest].score) {
-                smallest = leftChild;
-            }
-            if(rightChild < mCount && mData[rightChild].score < mData[smallest].score) {
-                smallest = rightChild;
-            }
+        if(leftChild < mCount && mData[leftChild].score < mData[smallest].score) {
+            smallest = leftChild;
+        }
+        if(rightChild < mCount && mData[rightChild].score < mData[smallest].score) {
+            smallest = rightChild;
+        }
 
-            if(smallest != currIndex) {
-                std::swap(mData[currIndex], mData[smallest]);
-                currIndex = smallest;
-            }
-            else {
-                break;
-            }
+        if(smallest != currIndex) {
+            std::swap(mData[currIndex], mData[smallest]);
+            currIndex = smallest;
+        }
+        else {
+            break;
         }
     }
 
