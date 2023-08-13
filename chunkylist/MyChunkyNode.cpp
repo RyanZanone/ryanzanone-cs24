@@ -92,7 +92,7 @@ void MyChunkyNode::remove(int index) {
 }
 
 void MyChunkyNode::merge_prev() {
-    // copy over items from current node to prev node
+    // copy over items from prev node to curr node
     for(int i = 0; i < prev_ref->count(); i++) {
         insert(i, prev_ref->items()[i]);
     }

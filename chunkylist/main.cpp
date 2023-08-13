@@ -30,7 +30,5 @@ int main() {
   list->insert(18, "19");
   list->insert(19, "20");
 
-  cout << list->lookup(19) << endl;
-
   delete list;
 }

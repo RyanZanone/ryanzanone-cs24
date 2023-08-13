@@ -79,7 +79,12 @@ int main() {
         } 
         else { // unary operator
           double result = operation(token, num2, 0);
-          Stack.push(result);
+          if(num2 == NAN) {
+            Stack.push(-NAN);
+          }
+          else {
+            Stack.push(result);
+          }
         }
         
       } 
