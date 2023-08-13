@@ -2,7 +2,7 @@
 #include <stdexcept> 
 
 Heap::Heap(size_t capacity) {
-    mData = new Entry[capcity];
+    mData = new Entry[capacity];
     mCapacity = capacity;
     mCount = 0;
 }
