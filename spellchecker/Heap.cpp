@@ -59,8 +59,8 @@ Heap::Entry Heap::pop() {
     size_t currIndex = 0;
     // perc down
     while(true) {
-        size_t leftChild = index * 2 + 1;
-        size_t rightChild = index * 2 + 2;
+        size_t leftChild = currIndex * 2 + 1;
+        size_t rightChild = currIndex * 2 + 2;
         size_t smallest = currIndex;
 
         if(leftChild < mCount && mData[leftChild].score < mData[smallest].score) {
@@ -86,7 +86,7 @@ Heap::Entry Heap::pushpop(const std::string& value, float score) {
     if(mCount == 0) {
         throw std::underflow_error("Heap is empty");
     }
-    
+
 }
 
 void Heap::push(const std::string& value, float score) {
