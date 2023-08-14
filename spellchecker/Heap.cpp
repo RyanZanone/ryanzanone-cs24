@@ -56,26 +56,28 @@ Heap::Entry Heap::pop() {
     mData[0] = mData[mCount - 1];
     mCount -= 1;
 
-    size_t currIndex = 0;
-    // perc down
-    while(true) {
-        size_t leftChild = currIndex * 2 + 1;
-        size_t rightChild = currIndex * 2 + 2;
-        size_t smallest = currIndex;
+    if(mCount > 0) {
+        size_t currIndex = 0;
+        // perc down
+        while(true) {
+            size_t leftChild = currIndex * 2 + 1;
+            size_t rightChild = currIndex * 2 + 2;
+            size_t smallest = currIndex;
 
-        if(leftChild < mCount && mData[leftChild].score < mData[smallest].score) {
-            smallest = leftChild;
-        }
-        if(rightChild < mCount && mData[rightChild].score < mData[smallest].score) {
-            smallest = rightChild;
-        }
+            if(leftChild < mCount && mData[leftChild].score < mData[smallest].score) {
+                smallest = leftChild;
+            }
+            if(rightChild < mCount && mData[rightChild].score < mData[smallest].score) {
+                smallest = rightChild;
+            }
 
-        if(smallest != currIndex) {
-            std::swap(mData[currIndex], mData[smallest]);
-            currIndex = smallest;
-        }
-        else {
-            break;
+            if(smallest != currIndex) {
+                std::swap(mData[currIndex], mData[smallest]);
+                currIndex = smallest;
+            }
+            else {
+                break;
+            }
         }
     }
 
