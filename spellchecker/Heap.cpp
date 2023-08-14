@@ -64,10 +64,10 @@ Heap::Entry Heap::pop() {
             size_t rightChild = currIndex * 2 + 2;
             size_t smallest = currIndex;
 
-            if(leftChild < mCount && mData[leftChild].score < mData[smallest].score) {
+            if(leftChild < mCount && mData[leftChild].score <= mData[smallest].score) {
                 smallest = leftChild;
             }
-            if(rightChild < mCount && mData[rightChild].score < mData[smallest].score) {
+            if(rightChild < mCount && mData[rightChild].score <= mData[smallest].score) {
                 smallest = rightChild;
             }
 
@@ -123,9 +123,13 @@ void Heap::push(const std::string& value, float score) {
     if(mCount >= mCapacity) {
         throw std::overflow_error("Heap is full");
     }
+
+    Entry newEntry;
+    newEntry.value = value;
+    newEntry.score = score;
+
     size_t index = mCount;
-    mData[index].value = value;
-    mData[index].score = score;
+    mData[index] = newEntry;
     mCount += 1;
 
     // perc up
@@ -139,6 +143,8 @@ void Heap::push(const std::string& value, float score) {
             break;
         }
     }
+
+    mData[index] = newEntry;
 }
 
 const Heap::Entry& Heap::top() const {
