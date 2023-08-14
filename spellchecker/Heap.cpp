@@ -67,7 +67,7 @@ Heap::Entry Heap::pop() {
             if(leftChild < mCount && mData[leftChild].score <= mData[smallest].score) {
                 smallest = leftChild;
             }
-            if(rightChild < mCount && mData[rightChild].score <= mData[smallest].score) {
+            if(rightChild < mCount && mData[rightChild].score < mData[smallest].score) {
                 smallest = rightChild;
             }
 
@@ -103,7 +103,7 @@ Heap::Entry Heap::pushpop(const std::string& value, float score) {
         if(leftChild < mCount && mData[leftChild].score <= mData[smallest].score) {
             smallest = leftChild;
         }
-        if(rightChild < mCount && mData[rightChild].score <= mData[smallest].score) {
+        if(rightChild < mCount && mData[rightChild].score < mData[smallest].score) {
             smallest = rightChild;
         }
 
