@@ -64,10 +64,10 @@ Heap::Entry Heap::pop() {
             size_t rightChild = currIndex * 2 + 2;
             size_t smallest = currIndex;
 
-            if(leftChild < mCount && mData[leftChild].score <= mData[smallest].score) {
+            if(leftChild < mCount && mData[leftChild].score < mData[smallest].score) {
                 smallest = leftChild;
             }
-            if(rightChild < mCount && mData[rightChild].score <= mData[smallest].score) {
+            if(rightChild < mCount && mData[rightChild].score < mData[smallest].score) {
                 smallest = rightChild;
             }
 
