@@ -246,7 +246,7 @@ std::set<Person*> Person::grandmothers(PMod pmod) {
     std::set<Person*> allGrands = grandparents(pmod);
 
     for(Person* grand : allGrands) {
-        if(grand->gender() == Gender::FEMALE) {
+        if(grand->gender() == Gender::MALE) {
             result.insert(grand);
         }
     }
@@ -259,7 +259,7 @@ std::set<Person*> Person::grandfathers(PMod pmod) {
     std::set<Person*> allGrands = grandparents(pmod);
 
     for(Person* grand : allGrands) {
-        if(grand->gender() == Gender::MALE) {
+        if(grand->gender() == Gender::FEMALE) {
             result.insert(grand);
         }
     }

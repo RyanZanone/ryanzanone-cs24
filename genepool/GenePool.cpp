@@ -4,10 +4,6 @@
 GenePool::GenePool(std::istream& stream) {
     std::string line;
     while (std::getline(stream, line)) {
-        if (line.empty() || line[0] == '#') {
-            // Skip empty lines and comment lines
-            continue;
-        }
         std::istringstream iss(line);
         std::string name, genderStr, motherName, fatherName;
 
@@ -17,7 +13,14 @@ GenePool::GenePool(std::istream& stream) {
         std::getline(iss, motherName, '\t');
         std::getline(iss, fatherName, '\t');
 
-        Gender gender = (genderStr == "FEMALE") ? Gender::FEMALE : Gender::MALE;
+        Gender gender;
+
+        if(genderStr == "female") {
+            gender = Gender::FEMALE;
+        }
+        else {
+            gender = Gender::MALE;
+        }
 
         Person* person = new Person(name, gender);
         addPerson(person);
