@@ -84,39 +84,36 @@ std::set<Person*> Person::ancestors(PMod pmod) {
 
 std::set<Person*> Person::aunts(PMod pmod, SMod smod) {
     std::set<Person*> result;
+    std::set<Person*> maternalAunts = mMother->sisters(PMod::ANY, smod);
+    std::set<Person*> paternalAunts = mFather->sisters(PMod::ANY, smod);
 
-    if (mMother) {
-        std::set<Person*> maternalAunts = mMother->sisters(pmod, smod);
-        for(Person* aunt : maternalAunts) {
-            result.insert(aunt);
-        }
+    if(pmod == PMod::MATERNAL) {
+        result = maternalAunts;
     }
-
-    if (mFather) {
-        std::set<Person*> paternalAunts = mFather->sisters(pmod, smod);
-        for(Person* aunt : paternalAunts) {
-            result.insert(aunt);
-        }
+    else if(pmod == PMod::PATERNAL) {
+        result = paternalAunts;
+    }
+    else {
+        result = maternalAunts | paternalAunts;
     }
 
     return result;
+    
 }
 
 std::set<Person*> Person::uncles(PMod pmod, SMod smod) {
     std::set<Person*> result;
+    std::set<Person*> maternalUncles = mMother->brothers(PMod::ANY, smod);
+    std::set<Person*> paternalUncles = mFather->brothers(PMod::ANY, smod);
 
-    if(mMother) {
-        std::set<Person*> maternalUncles = mMother->brothers(pmod, smod);
-        for(Person* uncle : maternalUncles) {
-            result.insert(uncle);
-        }
+    if(pmod == PMod::MATERNAL) {
+        result = maternalUncles;
     }
-
-    if(mFather) {
-        std::set<Person*> paternalUncles = mFather->brothers(pmod, smod); 
-        for(Person* uncle : paternalUncles) {
-            result.insert(uncle);
-        }
+    else if(pmod == PMod::PATERNAL) {
+        result = paternalUncles;
+    }
+    else {
+        result = maternalUncles | paternalUncles;
     }
 
     return result;
