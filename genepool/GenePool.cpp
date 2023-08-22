@@ -27,6 +27,7 @@ GenePool::GenePool(std::istream& stream) {
             Person* mother = find(motherName);
             if (mother) {
                 person->addParent(Gender::FEMALE, mother);
+                person->mother()->addChild(person);
             }
         }
 
@@ -34,6 +35,7 @@ GenePool::GenePool(std::istream& stream) {
             Person* father = find(fatherName);
             if (father) {
                 person->addParent(Gender::MALE, father);
+                person->father()->addChild(person);
             }
         }
     }

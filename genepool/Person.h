@@ -42,9 +42,9 @@ public:
   std::set<Person*> descendants(); // stub
   std::set<Person*> grandchildren(); // stub
   std::set<Person*> granddaughters(); // stub
-  std::set<Person*> grandfathers(PMod pmod = PMod::ANY); // stub
-  std::set<Person*> grandmothers(PMod pmod = PMod::ANY); // stub
-  std::set<Person*> grandparents(PMod pmod = PMod::ANY); // stub
+  std::set<Person*> grandfathers(PMod pmod = PMod::ANY); // DONE
+  std::set<Person*> grandmothers(PMod pmod = PMod::ANY); // DONE
+  std::set<Person*> grandparents(PMod pmod = PMod::ANY); // DONE
   std::set<Person*> grandsons(); // stub
   std::set<Person*> nephews(PMod pmod = PMod::ANY, SMod smod = SMod::ANY); // stub
   std::set<Person*> nieces(PMod pmod = PMod::ANY, SMod smod = SMod::ANY); // stub
