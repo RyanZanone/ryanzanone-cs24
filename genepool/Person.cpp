@@ -348,12 +348,32 @@ std::set<Person*> Person::grandfathers(PMod pmod) {
 
 std::set<Person*> Person::nieces(PMod pmod, SMod smod) {
     std::set<Person*> result;
+    std::set<Person*> sibSet = siblings(pmod, smod);
+
+    for (Person* sib : sibSet) {
+        std::set<Person*> sibChildren = sib->children();
+        for (Person* niece : sibChildren) {
+            if (niece->gender() == Gender::FEMALE) {
+                result.insert(niece);
+            }
+        }
+    }
 
     return result;
 }
 
 std::set<Person*> Person::nephews(PMod pmod, SMod smod) {
     std::set<Person*> result;
+    std::set<Person*> sibSet = siblings(pmod, smod);
+
+    for (Person* sib : sibSet) {
+        std::set<Person*> sibChildren = sib->children();
+        for (Person* nephew : sibChildren) {
+            if (nephew->gender() == Gender::MALE) {
+                result.insert(nephew);
+            }
+        }
+    }
 
     return result;
 }
