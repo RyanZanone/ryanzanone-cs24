@@ -205,6 +205,54 @@ std::set<Person*> Person::grandsons() {
     return result;
 }
 
+std::set<Person*> Person::grandfathers(PMod pmod) {
+    std::set<Person*> result;
+
+    if (mFather != nullptr) {
+        result.insert(mFather->father());
+    }
+
+    if (mMother != nullptr && pmod != PMod::PATERNAL) {
+        result.insert(mMother->father());
+    }
+
+    return result;
+}
+
+std::set<Person*> Person::grandmothers(PMod pmod) {
+    std::set<Person*> result;
+
+    if (mFather != nullptr) {
+        result.insert(mFather->mother());
+    }
+
+    if (mMother != nullptr && pmod != PMod::PATERNAL) {
+        result.insert(mMother->mother());
+    }
+
+    return result;
+}
+
+std::set<Person*> Person::grandparents(PMod pmod) {
+    std::set<Person*> result;
+
+    if (pmod == PMod::ANY || pmod == PMod::MATERNAL) {
+        if (mMother != nullptr) {
+            std::set<Person*> maternalGrandparents = mMother->parents();
+            result.insert(maternalGrandparents.begin(), maternalGrandparents.end());
+        }
+    }
+
+    if (pmod == PMod::ANY || pmod == PMod::PATERNAL) {
+        if (mFather != nullptr) {
+            std::set<Person*> paternalGrandparents = mFather->parents();
+            result.insert(paternalGrandparents.begin(), paternalGrandparents.end());
+        }
+    }
+
+    return result;
+}
+
 std::set<Person*> Person::nephews(PMod pmod, SMod smod) {
     std::set<Person*> result;
 
