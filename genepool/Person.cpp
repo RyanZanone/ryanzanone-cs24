@@ -124,44 +124,51 @@ std::set<Person*> Person::uncles(PMod pmod, SMod smod) {
 
 std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
     std::set<Person*> result;
+    std::set<Person*> maternalSiblings = mMother->children();
+    std::set<Person*> paternalSiblings = mFather->children();
 
-    if(smod == SMod::FULL) {
+    if(pmod == PMod::ANY && smod == SMod::ANY) {
+        result = maternalSiblings | paternalSiblings;
+    }
+    else if(smod == SMod::FULL) {
         if(mMother && mFather) {
-            std::set<Person*> allSibs;
-            std::set<Person*> maternalSibs = mMother->children();
-            std::set<Person*> paternalSibs = mFather->children();
-            if(pmod == PMod::MATERNAL) {
-                for(Person* sib : maternalSibs) {
-                    if(sib->mother() == mMother && sib->father() == mFather) {
-                        result.insert(sib);
-                    }
+            for(Person* sib : maternalSiblings) {
+                if(sib->father() == mFather) {
+                    result.insert(sib);
                 }
-                return result;
-            }
-            else if (pmod == PMod::PATERNAL) {
-                for(Person* sib : paternalSibs) {
-                    if(sib->mother() == mMother && sib->father() == mFather) {
-                        result.insert(sib);
-                    }
-                }
-                return result;
-            }
-            else {
-                for(Person* sib : maternalSibs) {
-                    if(sib->mother() == mMother && sib->father() == mFather) {
-                        result.insert(sib);
-                    }
-                }
-                for(Person* sib : paternalSibs) {
-                    if(sib->mother() == mMother && sib->father() == mFather) {
-                        result.insert(sib);
-                    }
-                }
-                return result;
             }
         }
     }
-    
+    else {
+        if(pmod == PMod::PATERNAL) {
+            for(Person* sib : paternalSiblings) {
+                if(sib->mother() != nullptr && sib->mother() != mMother) {
+                    result.insert(sib);
+                }
+            }
+        }
+        else if(pmod == PMod::MATERNAL) {
+            for(Person* sib : maternalSiblings) {
+                if(sib->father() != nullptr && sib->father() != mFather) {
+                    result.insert(sib);
+                }
+            }
+        }
+        else {
+            for(Person* sib : paternalSiblings) {
+                if(sib->mother() != nullptr && sib->mother() != mMother) {
+                    result.insert(sib);
+                }
+            }
+            for(Person* sib : maternalSiblings) {
+                if(sib->father() != nullptr && sib->father() != mFather) {
+                    result.insert(sib);
+                }
+            }
+        }
+    }
+
+    result.erase(this);
     return result;
 }
 

@@ -2,6 +2,7 @@
 #define PERSON_H
 
 #include "Enums.h"
+#include "SetOperators.h"
 
 #include <set>
 #include <string>
