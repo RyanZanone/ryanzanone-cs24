@@ -45,11 +45,15 @@ void Person::addChild(Person* child) {
 std::set<Person*> Person::parents(PMod pmod) {
     std::set<Person*> result;
 
-    if((pmod == PMod::MATERNAL || pmod == PMod::ANY) && mMother) {
-        result.insert(mMother);
+    if(pmod == PMod::MATERNAL || pmod == PMod::ANY) {
+        if(mMother) {
+            result.insert(mMother);
+        }
     }
-    else if ((pmod == PMod::PATERNAL || pmod == PMod::ANY) && mFather) {
-        result.insert(mFather);
+    else if (pmod == PMod::PATERNAL || pmod == PMod::ANY) {
+        if(mFather) {
+            result.insert(mFather);
+        }
     }
     
     return result;
