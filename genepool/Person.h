@@ -33,26 +33,26 @@ public:
   Person*            father();
 
   // Required Relationship Functions
-  std::set<Person*> ancestors(PMod pmod = PMod::ANY);
-  std::set<Person*> aunts(PMod pmod = PMod::ANY, SMod smod = SMod::ANY);
-  std::set<Person*> brothers(PMod pmod = PMod::ANY, SMod smod = SMod::ANY);
-  std::set<Person*> children();
-  std::set<Person*> cousins(PMod pmod = PMod::ANY, SMod smod = SMod::ANY);
-  std::set<Person*> daughters();
-  std::set<Person*> descendants();
-  std::set<Person*> grandchildren();
-  std::set<Person*> granddaughters();
-  std::set<Person*> grandfathers(PMod pmod = PMod::ANY);
-  std::set<Person*> grandmothers(PMod pmod = PMod::ANY);
-  std::set<Person*> grandparents(PMod pmod = PMod::ANY);
-  std::set<Person*> grandsons();
-  std::set<Person*> nephews(PMod pmod = PMod::ANY, SMod smod = SMod::ANY);
-  std::set<Person*> nieces(PMod pmod = PMod::ANY, SMod smod = SMod::ANY);
-  std::set<Person*> parents(PMod pmod = PMod::ANY);
-  std::set<Person*> siblings(PMod pmod = PMod::ANY, SMod smod = SMod::ANY);
-  std::set<Person*> sisters(PMod pmod = PMod::ANY, SMod smod = SMod::ANY);
-  std::set<Person*> sons();
-  std::set<Person*> uncles(PMod pmod = PMod::ANY, SMod smod = SMod::ANY);
+  std::set<Person*> ancestors(PMod pmod = PMod::ANY); // DONE
+  std::set<Person*> aunts(PMod pmod = PMod::ANY, SMod smod = SMod::ANY); // DONE
+  std::set<Person*> brothers(PMod pmod = PMod::ANY, SMod smod = SMod::ANY); // DONE
+  std::set<Person*> children(); // DONE
+  std::set<Person*> cousins(PMod pmod = PMod::ANY, SMod smod = SMod::ANY); // stub
+  std::set<Person*> daughters(); // stub
+  std::set<Person*> descendants(); // stub
+  std::set<Person*> grandchildren(); // stub
+  std::set<Person*> granddaughters(); // stub
+  std::set<Person*> grandfathers(PMod pmod = PMod::ANY); // stub
+  std::set<Person*> grandmothers(PMod pmod = PMod::ANY); // stub
+  std::set<Person*> grandparents(PMod pmod = PMod::ANY); // stub
+  std::set<Person*> grandsons(); // stub
+  std::set<Person*> nephews(PMod pmod = PMod::ANY, SMod smod = SMod::ANY); // stub
+  std::set<Person*> nieces(PMod pmod = PMod::ANY, SMod smod = SMod::ANY); // stub
+  std::set<Person*> parents(PMod pmod = PMod::ANY); // DONE
+  std::set<Person*> siblings(PMod pmod = PMod::ANY, SMod smod = SMod::ANY); // DONE
+  std::set<Person*> sisters(PMod pmod = PMod::ANY, SMod smod = SMod::ANY); // DONE
+  std::set<Person*> sons(); // stub
+  std::set<Person*> uncles(PMod pmod = PMod::ANY, SMod smod = SMod::ANY); // DONE
 
   // Other Member Functions
   void addParent(Gender parentGender, Person* parent);
