@@ -18,6 +18,7 @@ private:
   Gender mGender;
   Person* mMother;
   Person* mFather;
+  std::set<Person*> mChildren;
   // Helper Functions
 
 public:
@@ -55,6 +56,6 @@ public:
 
   // Other Member Functions
   void addParent(Gender parentGender, Person* parent);
+  void addChild(Person* child);
 };
-
 #endif
