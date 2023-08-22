@@ -63,18 +63,15 @@ std::set<Person*> Person::ancestors(PMod pmod) {
 std::set<Person*> Person::aunts(PMod pmod, SMod smod) {
     std::set<Person*> result;
 
-    if (mMother != nullptr) {
+    if (mMother) {
         std::set<Person*> maternalSiblings = mMother->siblings(pmod, smod);
         result.insert(maternalSiblings.begin(), maternalSiblings.end());
     }
 
-    if (mFather != nullptr) {
+    if (mFather) {
         std::set<Person*> paternalSiblings = mFather->siblings(pmod, smod);
         result.insert(paternalSiblings.begin(), paternalSiblings.end());
     }
-
-    // Remove self from result
-    result.erase(this);
 
     return result;
 }
