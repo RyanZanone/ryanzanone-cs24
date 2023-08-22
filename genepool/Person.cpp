@@ -84,8 +84,8 @@ std::set<Person*> Person::ancestors(PMod pmod) {
 
 std::set<Person*> Person::aunts(PMod pmod, SMod smod) {
     std::set<Person*> result;
-    std::set<Person*> maternalAunts
-    std::set<Person*> paternalAunts
+    std::set<Person*> maternalAunts;
+    std::set<Person*> paternalAunts;
 
     if(pmod == PMod::MATERNAL) {
         if(mMother) {
