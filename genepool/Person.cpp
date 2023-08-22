@@ -187,9 +187,11 @@ std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
             }
         }
         else {
-            if(mFather && mMother) {
-                maternalSiblings = mMother->children();
+            if(mFather) {
                 paternalSiblings = mFather->children();
+            }
+            if(mMother) {
+                maternalSiblings = mMother->children();
             }
             for(Person* sib : paternalSiblings) {
                 if(sib->mother() != nullptr && sib->mother() != mMother) {
@@ -358,12 +360,26 @@ std::set<Person*> Person::nephews(PMod pmod, SMod smod) {
 
 std::set<Person*> Person::cousins(PMod pmod, SMod smod) {
     std::set<Person*> result;
+    std::set<Person*> auntsAndUncles = aunts(pmod, smod) | uncles(pmod, smod);
 
+    for(Person* auntOrUncle : auntsAndUncles) {
+        std::set<Person*> cousinsOfAuntOrUncle = auntOrUncle->children();
+        result.insert(cousinsOfAuntOrUncle.begin(), cousinsOfAuntOrUncle.end());
+    }
+
+    result.erase(this);
     return result;
 }
 
 std::set<Person*> Person::descendants() {
     std::set<Person*> result;
+    std::set<Person*> childrenSet = children();
+
+    for(Person* child : childrenSet) {
+        result.insert(child);
+        std::set<Person*> childDescendants = child->descendants();
+        result.insert(childDescendants.begin(), childDescendants.end());
+    }
 
     return result;
 }
