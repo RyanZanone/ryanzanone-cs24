@@ -165,7 +165,7 @@ std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
             }
         }
     }
-    else {
+    else if(smod == SMod::HALF) {
         if(pmod == PMod::PATERNAL) {
             if(mFather) {
                 paternalSiblings = mFather->children();
@@ -236,6 +236,12 @@ std::set<Person*> Person::sisters(PMod pmod, SMod smod) {
 
 std::set<Person*> Person::daughters() {
     std::set<Person*> result;
+    
+    for(Person* child : mChildren) {
+        if(child->gender() == Gender::FEMALE) {
+            result.insert(child);
+        }
+    }
 
     return result;
 }
@@ -243,11 +249,27 @@ std::set<Person*> Person::daughters() {
 std::set<Person*> Person::sons() {
     std::set<Person*> result;
 
+    for(Person* child : mChildren) {
+        if(child->gender() == Gender::MALE) {
+            result.insert(child);
+        }
+    }
+
     return result;
 }
 
 std::set<Person*> Person::grandchildren() {
     std::set<Person*> result;
+    std::set<Person*> childrenSet = children();
+
+    for(Person* child : childrenSet) {
+        std::set<Person*> childGrandchildren = child->children();
+        result.insert(childGrandchildren.begin(), childGrandchildren.end());
+    }
+
+    for(Person* child : childrenSet) {
+        result.erase(child);
+    }
 
     return result;
 }
@@ -255,11 +277,23 @@ std::set<Person*> Person::grandchildren() {
 std::set<Person*> Person::granddaughters() {
     std::set<Person*> result;
 
+    for(Person* grandChild : grandchildren()) {
+        if(grandChild->gender() == Gender::FEMALE) {
+            result.insert(grandChild);
+        }
+    }
+
     return result; 
 }
 
 std::set<Person*> Person::grandsons() {
     std::set<Person*> result;
+
+    for(Person* grandChild : grandchildren()) {
+        if(grandChild->gender() == Gender::MALE) {
+            result.insert(grandChild);
+        }
+    }
 
     return result; 
 }
