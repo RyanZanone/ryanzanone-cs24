@@ -9,7 +9,6 @@
 enum class Gender {
   MALE,
   FEMALE,
-
   ANY
 };
 
