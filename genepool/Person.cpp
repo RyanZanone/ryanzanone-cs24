@@ -319,19 +319,25 @@ std::set<Person*> Person::parents(PMod pmod) {
 std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
     std::set<Person*> result;
 
-    if (pmod == PMod::ANY || pmod == PMod::MATERNAL) {
-        if (mMother) {
-            std::set<Person*> maternalSiblings = mMother->siblings(PMod::ANY, smod);
-            result.insert(maternalSiblings.begin(), maternalSiblings.end());
+    if (mMother) {
+        const std::set<Person*>& motherChildren = mMother->children();
+        for (Person* sibling : motherChildren) {
+            if (sibling != this && (!sibling->mFather || (pmod != PMod::MATERNAL && pmod != PMod::ANY))) {
+                result.insert(sibling);
+            }
         }
     }
 
-    if (pmod == PMod::ANY || pmod == PMod::PATERNAL) {
-        if (mFather) {
-            std::set<Person*> paternalSiblings = mFather->siblings(PMod::ANY, smod);
-            result.insert(paternalSiblings.begin(), paternalSiblings.end());
+    if (mFather) {
+        const std::set<Person*>& fatherChildren = mFather->children();
+        for (Person* sibling : fatherChildren) {
+            if (sibling != this && (!sibling->mMother || (pmod != PMod::PATERNAL && pmod != PMod::ANY))) {
+                result.insert(sibling);
+            }
         }
     }
+
+    // Apply smod filter if specified
 
     return result;
 }
