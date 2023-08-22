@@ -4,6 +4,10 @@
 GenePool::GenePool(std::istream& stream) {
     std::string line;
     while (std::getline(stream, line)) {
+        if (line.empty() || line[0] == '#') {
+            // Skip empty lines and comment lines
+            continue;
+        }
         std::istringstream iss(line);
         std::string name, genderStr, motherName, fatherName;
 
