@@ -145,6 +145,24 @@ std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
             }
         }
     }
+    else if(smod == SMod::ANY) {
+        if(pmod == PMod::PATERNAL) {
+            if(mFather) {
+                paternalSiblings = mFather->children();
+            }
+            for(Person* sib : paternalSiblings) {
+                result.insert(sib);
+            }
+        }
+        else if(pmod == PMod::MATERNAL) {
+            if(mMother) {
+                maternalSiblings = mMother->children();
+            }
+            for(Person* sib : maternalSiblings) {
+                result.insert(sib);
+            }
+        }
+    }
     else {
         if(pmod == PMod::PATERNAL) {
             if(mFather) {
