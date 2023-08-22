@@ -128,8 +128,10 @@ std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
     std::set<Person*> paternalSiblings;
 
     if(pmod == PMod::ANY && smod == SMod::ANY) {
-        if(mMother && mFather) {
+        if(mMother) {
             maternalSiblings = mMother->children();
+        }
+        if(mFather) {
             paternalSiblings = mFather->children();
         }
         result = maternalSiblings | paternalSiblings;
