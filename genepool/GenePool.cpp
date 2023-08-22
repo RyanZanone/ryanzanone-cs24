@@ -15,7 +15,7 @@ GenePool::GenePool(std::istream& stream) {
 
         Gender gender;
 
-        if(genderStr == "female") {
+        if(genderStr == "FEMALE") {
             gender = Gender::FEMALE;
         }
         else {
