@@ -124,14 +124,20 @@ std::set<Person*> Person::uncles(PMod pmod, SMod smod) {
 
 std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
     std::set<Person*> result;
-    std::set<Person*> maternalSiblings = mMother->children();
-    std::set<Person*> paternalSiblings = mFather->children();
+    std::set<Person*> maternalSiblings;
+    std::set<Person*> paternalSiblings;
 
     if(pmod == PMod::ANY && smod == SMod::ANY) {
+        if(mMother && mFather) {
+            maternalSiblings = mMother->children();
+            paternalSiblings = mFather->children();
+        }
         result = maternalSiblings | paternalSiblings;
     }
     else if(smod == SMod::FULL) {
         if(mMother && mFather) {
+            maternalSiblings = mMother->children();
+            paternalSiblings = mFather->children();
             for(Person* sib : maternalSiblings) {
                 if(sib->father() == mFather) {
                     result.insert(sib);
