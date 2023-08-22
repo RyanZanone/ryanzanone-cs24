@@ -3,26 +3,33 @@
 // GenePool Member Functions
 GenePool::GenePool(std::istream& stream) {
     std::string line;
-    while(std::getline(stream, line)) {
-        if(!line.empty() && line[0] != '#') {
-            std::string name, genderStr, motherName, fatherName;
-            Gender gender;
+    while (std::getline(stream, line)) {
+        std::istringstream iss(line);
+        std::string name, genderStr, motherName, fatherName;
 
-            std::istringstream lineStream(line);
-            lineStream >> name >> genderStr >> motherName >> fatherName;
+        // Assuming the format is: Name, Gender, Mother, Father
+        std::getline(iss, name, '\t');
+        std::getline(iss, genderStr, '\t');
+        std::getline(iss, motherName, '\t');
+        std::getline(iss, fatherName, '\t');
 
-            if(genderStr == "male") {
-                gender = Gender::MALE;
-            }
-            else if (genderStr == "female") {
-                gender = Gender::FEMALE;
-            }
-            else {
-                throw std::invalid_argument("Invalid gender: " + genderStr);
-            }
+        Gender gender = (genderStr == "FEMALE") ? Gender::FEMALE : Gender::MALE;
 
-            Person* person = new Person(name, gender);
-            addPerson(person);
+        Person* person = new Person(name, gender);
+        addPerson(person);
+
+        if (!motherName.empty()) {
+            Person* mother = find(motherName);
+            if (mother) {
+                person->addParent(Gender::FEMALE, mother);
+            }
+        }
+
+        if (!fatherName.empty()) {
+            Person* father = find(fatherName);
+            if (father) {
+                person->addParent(Gender::MALE, father);
+            }
         }
     }
 }
@@ -52,3 +59,4 @@ Person* GenePool::find(const std::string& name) const {
     }
     return nullptr;
 }
+
