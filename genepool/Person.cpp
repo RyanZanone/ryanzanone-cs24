@@ -45,17 +45,18 @@ void Person::addChild(Person* child) {
 std::set<Person*> Person::parents(PMod pmod) {
     std::set<Person*> result;
 
-    if(pmod == PMod::MATERNAL || pmod == PMod::ANY) {
+    if(pmod == PMod::ANY || pmod == PMod::MATERNAL) {
         if(mMother) {
             result.insert(mMother);
         }
     }
-    else if (pmod == PMod::PATERNAL || pmod == PMod::ANY) {
+
+    if(pmod == PMod::ANY || pmod == PMod::PATERNAL) {
         if(mFather) {
             result.insert(mFather);
         }
     }
-    
+
     return result;
 }
 
@@ -222,6 +223,20 @@ std::set<Person*> Person::grandsons() {
 
 std::set<Person*> Person::grandparents(PMod pmod) {
     std::set<Person*> result;
+
+    if(pmod == PMod::ANY || pmod == PMod::MATERNAL) {
+        if(mMother) {
+            std::set<Person*> maternalGrandparents = mMother->parents();
+            result.insert(maternalGrandparents.begin(), maternalGrandparents.end());
+        }
+    }
+
+    if(pmod == PMod::ANY || pmod == PMod::PATERNAL) {
+        if(mFather) {
+            std::set<Person*> paternalGrandparents = mFather->parents();
+            result.insert(paternalGrandparents.begin(), paternalGrandparents.end());
+        }
+    }
 
     return result;
 }
