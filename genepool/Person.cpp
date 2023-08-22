@@ -243,12 +243,26 @@ std::set<Person*> Person::grandparents(PMod pmod) {
 
 std::set<Person*> Person::grandmothers(PMod pmod) {
     std::set<Person*> result;
+    std::set<Person*> allGrands = grandparents(pmod);
+
+    for(Person* grand : allGrands) {
+        if(grand->gender() == Gender::FEMALE) {
+            result.insert(grand);
+        }
+    }
 
     return result;
 }
 
 std::set<Person*> Person::grandfathers(PMod pmod) {
     std::set<Person*> result;
+    std::set<Person*> allGrands = grandparents(pmod);
+
+    for(Person* grand : allGrands) {
+        if(grand->gender() == Gender::MALE) {
+            result.insert(grand);
+        }
+    }
 
     return result;
 }
