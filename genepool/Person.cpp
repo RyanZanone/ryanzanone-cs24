@@ -171,7 +171,7 @@ std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
                 paternalSiblings = mFather->children();
             }
             for(Person* sib : paternalSiblings) {
-                if(sib->mother() != nullptr && sib->mother() != mMother) {
+                if(sib->mother() != mMother) {
                     result.insert(sib);
                 }
             }
@@ -181,7 +181,7 @@ std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
                 maternalSiblings = mMother->children();
             }
             for(Person* sib : maternalSiblings) {
-                if(sib->father() != nullptr && sib->father() != mFather) {
+                if(sib->father() != mFather) {
                     result.insert(sib);
                 }
             }
@@ -193,16 +193,16 @@ std::set<Person*> Person::siblings(PMod pmod, SMod smod) {
             if(mMother) {
                 maternalSiblings = mMother->children();
             }
-            for(Person* sib : paternalSiblings) {
-                if(sib->mother() != nullptr && sib->mother() != mMother) {
+            std::set<Person*> allSibs = paternalSiblings | maternalSiblings;
+            for(Person* sib : allSibs) {
+                if(sib->father() == mFather && sib->mother() == mMother) {
+                    continue;
+                }
+                else {
                     result.insert(sib);
                 }
             }
-            for(Person* sib : maternalSiblings) {
-                if(sib->father() != nullptr && sib->father() != mFather) {
-                    result.insert(sib);
-                }
-            }
+            result.insert(this);
         }
     }
 
