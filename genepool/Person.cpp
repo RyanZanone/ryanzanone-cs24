@@ -110,13 +110,7 @@ std::set<Person*> Person::brothers(PMod pmod, SMod smod) {
 }
 
 std::set<Person*> Person::children() {
-    std::set<Person*> result;
-
-    for (Person* person : mChildren) {
-        result.insert(person);
-    }
-
-    return result;
+    return mChildren;
 }
 
 std::set<Person*> Person::cousins(PMod pmod, SMod smod) {
