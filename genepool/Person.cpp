@@ -25,7 +25,7 @@ Person* Person::father() {
     return mFather;
 }
 
-void addParent(Gender parentGender, Person* parent) {
+void Person::addParent(Gender parentGender, Person* parent) {
     if(parentGender == Gender::FEMALE) {
         mMother = parent;
     }
