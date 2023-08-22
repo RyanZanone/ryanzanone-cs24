@@ -4,6 +4,7 @@
 #include "Person.h"
 
 #include <istream>
+#include <sstream>
 #include <set>
 #include <string>
 #include <map>
@@ -14,8 +15,11 @@
 
 class GenePool {
   // Member Variables
+private:
+  std::map<std::string, Person*> people; // Store individuals by their names
 
   // Helper Functions
+  void addPerson(Person* person); // Add an individual to a database
 
 public:
   // Build a database of people from a TSV file.
