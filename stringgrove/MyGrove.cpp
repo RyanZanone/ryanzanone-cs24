@@ -1,7 +1,12 @@
 #include "MyGrove.h"
 
 MyGrove::MyGrove(const char* str) {
-    root = new Node(str, strlen(str));
+    if(str) {
+        root = new Node(str, strlen(str));     
+    }
+    else {
+        root = nullptr;
+    }
 }
 
 int MyGrove::len() const {
@@ -74,6 +79,10 @@ MyGrove::Node* MyGrove::findSubstring(Node* node, int start, int end) const {
 
     int nodeStart = 0;
     int nodeEnd = node->length;
+
+    if (start < 0 || end > nodeEnd || start > end) {
+        throw std::out_of_range("Invalid substring indices");
+    }
 
     if (start == 0 && end == nodeEnd) {
         // The requested substring covers the entire node
