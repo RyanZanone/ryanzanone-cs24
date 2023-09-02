@@ -18,16 +18,21 @@ int main() {
   char charAtIndex = str->charAt(2); // Should be 's'
   std::cout << "Character at index 2: " << charAtIndex << std::endl;
 
-
-  MyGrove* str3 = new MyGrove("Hello, World!");
-  const MyGrove* substring = str3->substr(7, 12); // Should be "World!"
+  MyGrove* str4 = new MyGrove("Hello, World!");
+  const MyGrove* substring = str4->substr(7, 12); // Should be "World!"
   std::cout << "Substring: ";
-  
-  if(substring) {
-    std::cout << "Substring length: " << substring->len() << std::endl;
+  for (int i = 0; i < substring->len(); ++i) {
+      std::cout << substring->charAt(i);
   }
-  else {
-    std::cerr << "Substring is null." << std::endl;
+  std::cout << std::endl;
+
+    MyGrove* str3 = new MyGrove("Testing");
+  try {
+      char charAtIndex = str3->charAt(10);
+      std::cout << "Character at index 10: " << charAtIndex << std::endl;
+  } 
+  catch (const std::out_of_range& e) {
+      std::cerr << "Error: " << e.what() << std::endl;
   }
 
   return 0;

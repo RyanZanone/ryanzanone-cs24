@@ -42,91 +42,128 @@ char MyGrove::charAt(int index) const {
 }
 
 char MyGrove::findChar(Node* node, int index) const {
-    if(!node->left && !node->right) {
-      return node->str[index];
+    if (!node) {
+        throw std::out_of_range("Node is null");
     }
 
-    if(index < node->left->length) {
-      return findChar(node->left, index);
+    if (index < 0 || index >= node->length) {
+        throw std::out_of_range("Invalid index");
     }
-    else {
-      return findChar(node->right, index - node->left->length);
+
+    if (!node->left && !node->right) {
+        if (!node->str) {
+            throw std::runtime_error("String is null");
+        }
+        return node->str[index];
+    }
+
+    if (index < node->left->length) {
+        return findChar(node->left, index);
+    } else {
+        return findChar(node->right, index - node->left->length);
     }
 }
 
-const MyGrove* MyGrove::substr(int start, int end) const {
-    if (!root || start < 0 || end > root->length || start > end)
-        throw std::out_of_range("Invalid substring indices");
+const MyGrove* MyGrove::substr(int i, int j) const {
+    if (!root || i < 0 || j < i || j > root->length) {
+        throw std::out_of_range("Invalid indices");
+    }
 
-    int length = end - start;
-    if (length == 0)
-        return new MyGrove(nullptr);
+    if (i == 0 && j == root->length) {
+        // If the substring covers the entire string, return a copy of this.
+        return this;
+    }
 
-    Node* newRoot = new Node(nullptr, length);
-    newRoot->left = findSubstring(root, start, start + length);
-    newRoot->length = length;
+    // Create a helper function to perform the substring operation recursively.
+    auto substringHelper = [](Node* node, int start, int end) -> Node* {
+        if (!node) {
+            return nullptr;
+        }
 
+        if (start == 0 && end >= node->length) {
+            // If the substring fully covers this node, return a copy of the entire node.
+            return new Node(node->str, node->length);
+        }
+
+        if (end <= 0) {
+            // If the substring is entirely to the left of this node, return nullptr.
+            return nullptr;
+        }
+
+        // The substring overlaps with this node.
+        int leftStart = std::max(0, start);
+        int leftEnd = std::min(node->left->length, end);
+
+        int rightStart = std::max(0, start - node->left->length);
+        int rightEnd = std::min(end - node->left->length, node->length);
+
+        Node* leftSubstr = nullptr;
+        Node* rightSubstr = nullptr;
+
+        if (leftStart < leftEnd) {
+            leftSubstr = substringHelper(node->left, leftStart, leftEnd);
+        }
+
+        if (rightStart < rightEnd) {
+            rightSubstr = substringHelper(node->right, rightStart, rightEnd);
+        }
+
+        if (!leftSubstr && !rightSubstr) {
+            return nullptr;
+        }
+
+        int newLength = end - start;
+        Node* newRoot = new Node(nullptr, newLength);
+        newRoot->left = leftSubstr;
+        newRoot->right = rightSubstr;
+
+        return newRoot;
+    };
+
+    Node* newRoot = substringHelper(root, i, j);
     MyGrove* substring = new MyGrove(nullptr);
     substring->root = newRoot;
 
     return substring;
 }
 
-MyGrove::Node* MyGrove::findSubstring(Node* node, int start, int end) const {
+MyGrove::Node* MyGrove::substringHelper(Node* node, int start, int end) const {
     if (!node) {
         return nullptr;
     }
 
-    int nodeStart = 0;
-    int nodeEnd = node->length;
-
-    if (start < 0 || end > nodeEnd || start > end) {
-        throw std::out_of_range("Invalid substring indices");
+    if (start == 0 && end >= node->length) {
+        // If the substring fully covers this node, return a copy of the entire node.
+        return new Node(node->str, node->length);
     }
 
-    if (start == 0 && end == nodeEnd) {
-        // The requested substring covers the entire node
-        return node;
-    }
-
-    if (end <= nodeStart || start >= nodeEnd) {
-        // The requested substring is not within this node
+    if (end <= 0) {
+        // If the substring is entirely to the left of this node, return nullptr.
         return nullptr;
     }
 
-    if (start <= nodeStart && end >= nodeEnd) {
-        // The entire node is within the requested substring
-        return node;
+    if (start >= node->length) {
+        // If the substring is entirely to the right of this node, continue searching in the right child.
+        return substringHelper(node->right, start - node->length, end - node->length);
     }
 
-    // Calculate the new start and end positions for the children
-    int leftStart = start;
-    int leftEnd = std::min(end, node->left->length);
-    int rightStart = std::max(start - node->left->length, 0);
-    int rightEnd = end - node->left->length;
+    // The substring overlaps with this node.
+    int leftStart = std::max(0, start);
+    int leftEnd = std::min(start + node->left->length, end);
 
-    Node* left = findSubstring(node->left, leftStart, leftEnd);
-    Node* right = findSubstring(node->right, rightStart, rightEnd);
+    int rightStart = std::max(0, start - node->left->length);
+    int rightEnd = std::min(end - node->left->length, node->length);
 
-    if (!left && !right) {
-        return nullptr;
-    }
+    Node* leftSubstr = substringHelper(node->left, leftStart, leftEnd);
+    Node* rightSubstr = substringHelper(node->right, rightStart, rightEnd);
 
-    if (!left) {
-        return right;
-    }
-
-    if (!right) {
-        return left;
-    }
-
-    // Create a new node to represent the combined substring
-    Node* newRoot = new Node(nullptr, end - start);
-    newRoot->left = left;
-    newRoot->right = right;
-    newRoot->length = end - start;
+    int newLength = end - start;
+    Node* newRoot = new Node(nullptr, newLength);
+    newRoot->left = leftSubstr;
+    newRoot->right = rightSubstr;
 
     return newRoot;
 }
+
 
 

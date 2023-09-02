@@ -36,7 +36,7 @@ public:
 
   // TODO: Add helper functions if necessary.
   char findChar(Node* node, int index) const;
-  Node* findSubstring(Node* node, int start, int end) const;
+  Node* substringHelper(Node* node, int start, int end) const; 
 };
 
 #endif
