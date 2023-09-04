@@ -9,8 +9,12 @@ using namespace std;
 class CountyMap {
 	private:
 		//storage requirement: O(e), e = number of edges between counties
-
 		//add private variables here
+	    std::vector<County> counties;
+		std::vector<std::vector<bool>> adjacencyMatrix;
+		std::unordered_map<int, std::vector<int>> adjacencyList;
+
+		void buildAdjacencyList();
 	public:
 		//constructor
 		//performance: O(n^2), n = number of counties
