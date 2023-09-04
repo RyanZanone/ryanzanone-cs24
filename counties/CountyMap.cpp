@@ -1,6 +1,7 @@
 #include "CountyMap.h"
 #include "County.h"
 #include <vector>
+#include <unordered_map>
 
 CountyMap::CountyMap(vector<County> counties, vector<vector<bool>> adjMatrix) {
     this->counties = counties;
