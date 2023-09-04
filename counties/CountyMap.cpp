@@ -17,7 +17,7 @@ CountyMap::~CountyMap() {
 }
 
 County CountyMap::getCounty(int index) {
-    if (index >= 0 && index < counties.size()) {
+    if (index >= 0 && static_cast<size_t>(index) < counties.size()) {
         return counties[index];
     } else {
         return County();
@@ -29,11 +29,10 @@ int CountyMap::getNumCounties() {
 }
 
 bool CountyMap::countyAdjacency(int index1, int index2) {
-    if (index1 >= 0 && index1 < static_cast<int>(counties.size()) &&
-        index2 >= 0 && index2 < static_cast<int>(counties.size())) {
+    if (index1 >= 0 && static_cast<size_t>(index1) < counties.size() &&
+        index2 >= 0 && static_cast<size_t>(index2) < counties.size()) {
         return adjacencyMatrix[index1][index2];
-    } 
-    else {
+    } else {
         return false;
     }
 }
@@ -56,11 +55,25 @@ bool CountyMap::checkValidItinerary(vector<int> itinerary) {
 }
 
 vector<int> CountyMap::getAdjacentCounties(int index) {
-    if (index >= 0 && index < static_cast<int>(counties.size())) {
-        return adjacencyList.at(index);
+    if (index >= 0 && static_cast<size_t>(index) < counties.size()) {
+        return adjacencyList[index];
     } else {
+
         return std::vector<int>();
     }
 }
 
 // helper functions may follow
+
+void CountyMap::buildAdjacencyList() {
+    adjacencyList.clear();
+    for (size_t i = 0; i < counties.size(); i++) {
+        std::vector<int> adjacent;
+        for (size_t j = 0; j < counties.size(); j++) {
+            if (adjacencyMatrix[i][j]) {
+                adjacent.push_back(static_cast<int>(j));
+            }
+        }
+        adjacencyList.push_back(adjacent);
+    }
+}
