@@ -12,7 +12,7 @@ class CountyMap {
 		//add private variables here
 	    std::vector<County> counties;
 		std::vector<std::vector<bool>> adjacencyMatrix;
-		std::unordered_map<int, std::vector<int>> adjacencyList;
+    	std::vector<std::vector<int>> adjacencyList;
 
 		void buildAdjacencyList();
 	public:

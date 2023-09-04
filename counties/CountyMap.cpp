@@ -1,7 +1,6 @@
 #include "CountyMap.h"
 #include "County.h"
 #include <vector>
-#include <unordered_map>
 
 CountyMap::CountyMap(vector<County> counties, vector<vector<bool>> adjMatrix) {
     this->counties = counties;
@@ -26,7 +25,7 @@ County CountyMap::getCounty(int index) {
 }
 
 int CountyMap::getNumCounties() {
-    // TODO
+    return static_cast<int>(counties.size());
 }
 
 bool CountyMap::countyAdjacency(int index1, int index2) {
